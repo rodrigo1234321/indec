@@ -866,6 +866,200 @@ export const REAL_POBREZA_SEMESTRAL = [
 ];
 
 /**
+ * Genera el Semáforo Rápido y Veredicto Visual para cada gobierno
+ * Permite que cualquier ciudadano entienda en 2 segundos qué mejoró (verde), qué empeoró (rojo) y qué no cambió (gris).
+ */
+export function getGovernmentQuickScorecard(gov, effectiveKey = 'reconstruccion') {
+  const m = gov.metrics[effectiveKey] || gov.metrics.reconstruccion;
+
+  if (gov.id === 'cfk') {
+    return {
+      mainHeadline: 'Máximo poder de compra en canastas y bajo desempleo, con cepo y pérdida de reservas',
+      takeaway:
+        'El salario formal alcanzó su techo histórico en canastas básicas (1,82 CBT) y el desempleo se redujo al 5,9%, pero el país perdió el superávit comercial y energético, y el BCRA agotó todas sus reservas netas líquidas.',
+      pillars: [
+        {
+          id: 'inflacion',
+          label: 'Inflación Anual',
+          statusText: effectiveKey === 'oficial' ? '15,6% anual oficial' : 'Empeoró (+4,1 pp)',
+          tone: effectiveKey === 'oficial' ? 'neutral' : 'negative',
+          icon: effectiveKey === 'oficial' ? '⚪' : '🔴',
+          metric: `${m.inflacionInicio}% → ${m.inflacionFin}%`,
+          explanation: 'Se mantuvo alta y persistente, motivando la fijación del cepo cambiario en 2011.'
+        },
+        {
+          id: 'salario',
+          label: 'Poder de Compra (Sueldo)',
+          statusText: 'Récord: 1,82 Canastas',
+          tone: 'positive',
+          icon: '🟢',
+          metric: `${m.salariosEnCBT} Canastas Totales`,
+          explanation: 'Mayor cantidad de canastas familiares que pudo comprar un salario en los 16 años.'
+        },
+        {
+          id: 'pobreza',
+          label: 'Pobreza e Indigencia',
+          statusText: effectiveKey === 'oficial' ? '4,7% oficial (2013)' : 'Aumentó a 30,1%',
+          tone: effectiveKey === 'oficial' ? 'positive' : 'negative',
+          icon: effectiveKey === 'oficial' ? '🟢' : '🔴',
+          metric: effectiveKey === 'oficial' ? '6,5% → 4,7%' : '26,0% → 30,1%',
+          explanation:
+            effectiveKey === 'oficial'
+              ? 'Serie oficial interrumpida por INDEC en 2013.'
+              : 'Aumentó +4,1 pp según serie histórica homogénea CEDLAS/UCA.'
+        },
+        {
+          id: 'reservas',
+          label: 'Reservas y Solvencia',
+          statusText: 'Agotó Reservas Netas',
+          tone: 'negative',
+          icon: '🔴',
+          metric: '+USD 31.500 M → -USD 1.800 M',
+          explanation: 'Se perdieron más de USD 33.000 millones y la brecha del dólar blue llegó al 54%.'
+        }
+      ]
+    };
+  }
+
+  if (gov.id === 'macri') {
+    return {
+      mainHeadline: 'Apertura inicial y recuperación del INDEC, seguida de crisis cambiaria y deuda con FMI',
+      takeaway:
+        'Se unificó el tipo de cambio y se normalizó la estadística oficial, pero tras las devaluaciones de 2018-2019 la inflación trepó al 54%, el salario perdió 18% de poder de compra y la deuda trepó al 90% del PBI.',
+      pillars: [
+        {
+          id: 'inflacion',
+          label: 'Inflación Anual',
+          statusText: 'Se duplicó (+28,4 pp)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: `${m.inflacionInicio}% → ${m.inflacionFin}%`,
+          explanation: 'Promedió 40,2% anual y cerró en 53,8% tras las corridas contra el peso.'
+        },
+        {
+          id: 'salario',
+          label: 'Poder de Compra (Sueldo)',
+          statusText: 'Cayó −18,2% real',
+          tone: 'negative',
+          icon: '🔴',
+          metric: '1,82 → 1,51 Canastas',
+          explanation: 'Fuerte pérdida de poder adquisitivo que afectó a registrados e informales.'
+        },
+        {
+          id: 'pobreza',
+          label: 'Pobreza e Indigencia',
+          statusText: 'Subió a 35,5% (+5,4 pp)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: `${m.pobrezaInicio}% → ${m.pobrezaFin}%`,
+          explanation: 'Bajó al 25,7% en 2017, pero la crisis 2018-2019 sumó 3,5 millones de nuevos pobres.'
+        },
+        {
+          id: 'reservas',
+          label: 'Reservas y Deuda',
+          statusText: 'Deuda récord (+FMI)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: 'Deuda 52,6% → 89,8% PBI',
+          explanation: 'Préstamo de USD 44.000 M con el FMI y restablecimiento del cepo cambiario en 2019.'
+        }
+      ]
+    };
+  }
+
+  if (gov.id === 'alberto') {
+    return {
+      mainHeadline: 'Bajo desempleo formal, con inflación récord (211%) y derrumbe del sueldo informal',
+      takeaway:
+        'El desempleo bajó al 5,7%, pero la fuerte emisión monetaria llevó la inflación al 211%, los salarios no registrados se desplomaron -35%, la pobreza subió al 41,7% y el BCRA quedó con reservas netas en -USD 11.200 M.',
+      pillars: [
+        {
+          id: 'inflacion',
+          label: 'Inflación Anual',
+          statusText: 'Se cuadruplicó (+157,6 pp)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: `${m.inflacionInicio}% → ${m.inflacionFin}%`,
+          explanation: 'Pasó del 53,8% al 211,4% anual, el registro más elevado en 33 años.'
+        },
+        {
+          id: 'salario',
+          label: 'Poder de Compra (Sueldo)',
+          statusText: 'Desplome informal (−34,6%)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: 'Formal −6,8% | Inf −34,6%',
+          explanation: 'Inédita brecha de desigualdad salarial entre trabajadores formales e informales.'
+        },
+        {
+          id: 'pobreza',
+          label: 'Pobreza e Indigencia',
+          statusText: 'Subió a 41,7% (+6,2 pp)',
+          tone: 'negative',
+          icon: '🔴',
+          metric: `${m.pobrezaInicio}% → ${m.pobrezaFin}%`,
+          explanation: 'La pobreza afectó a 4 de cada 10 argentinos y la indigencia trepó al 11,9%.'
+        },
+        {
+          id: 'reservas',
+          label: 'Reservas y Brecha',
+          statusText: 'Reservas en −USD 11.200 M',
+          tone: 'negative',
+          icon: '🔴',
+          metric: 'Brecha del 155% con cepo',
+          explanation: 'El BCRA agotó sus dólares líquidos y se multiplicaron las cotizaciones paralelas.'
+        }
+      ]
+    };
+  }
+
+  // Milei
+  return {
+    mainHeadline: 'Fuerte desinflación y equilibrio fiscal, con suba del desempleo y ajuste en jubilaciones',
+    takeaway:
+      'La inflación mensual bajó del 25,5% al 1,9% (33,4% i.a.), se logró superávit fiscal y la pobreza bajó al 32,3% tras el pico de 52,9%, pero la desocupación subió al 7,9% y el bono jubilatorio congelado redujo ingresos reales de la mínima.',
+    pillars: [
+      {
+        id: 'inflacion',
+        label: 'Inflación Anual',
+        statusText: 'Fuerte baja (−178,0 pp)',
+        tone: 'positive',
+        icon: '🟢',
+        metric: '211,4% → 33,4% anual',
+        explanation: 'Fuerte freno al ritmo mensual de suba de precios (de 25,5% mensual a 1,9%).'
+      },
+      {
+        id: 'salario',
+        label: 'Poder de Compra (Sueldo)',
+        statusText: 'Mixto: Privado +3,4%',
+        tone: 'neutral',
+        icon: '⚪',
+        metric: 'Privado +3,4% | Público −18,5%',
+        explanation: 'El asalariado formal recuperó poder de compra, pero estatales y bono sufrieron recorte.'
+      },
+      {
+        id: 'pobreza',
+        label: 'Pobreza e Indigencia',
+        statusText: 'Bajó a 32,3% (−9,4 pp)',
+        tone: 'positive',
+        icon: '🟢',
+        metric: '41,7% → 32,3% (Pico 52,9%)',
+        explanation: 'Retrocedió 20 puntos respecto al pico de 1S 2024 impulsada por la desinflación y la suba de AUH.'
+      },
+      {
+        id: 'reservas',
+        label: 'Fiscal y Reservas',
+        statusText: 'Superávit Primario (+1,6%)',
+        tone: 'positive',
+        icon: '🟢',
+        metric: '+USD 15.000 M recomprados',
+        explanation: 'Primer superávit fiscal sostenido en 16 años y brecha cambiaria reducida al 15%.'
+      }
+    ]
+  };
+}
+
+/**
  * Módulo Distributivo: "¿Quién mejoró realmente su situación en cada período?"
  */
 export const DISTRIBUTIVE_GROUPS = [

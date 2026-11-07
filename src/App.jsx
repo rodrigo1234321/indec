@@ -11,7 +11,7 @@ import { fetchPublicSeriesTime } from './services/indecApi';
 
 export default function App() {
   const [methodMode, setMethodMode] = useState('reconstruccion'); // 'reconstruccion' | 'oficial' | 'comparacion'
-  const [readingLevel, setReadingLevel] = useState('avanzada'); // 'sencilla' | 'avanzada'
+  const [readingLevel, setReadingLevel] = useState('sencilla'); // 'sencilla' (predeterminada) | 'avanzada'
   const [activeSection, setActiveSection] = useState('comparacion-cronologica');
   const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [jwtToken, setJwtToken] = useState('');
@@ -248,6 +248,27 @@ export default function App() {
                 <strong>Comparación entre Fuentes</strong> (contrasta simultáneamente la Serie Oficial Publicada y la Reconstrucción Histórica Comparable en las tarjetas de 2011–2015).
               </span>
             )}
+          </div>
+        </div>
+
+        {/* Guía Visual del Semáforo ("¿Cómo leer los colores?") */}
+        <div className="traffic-guide-banner">
+          <div className="traffic-guide-title">
+            <span>Guía Rápida de Colores (Objetiva y Matemática):</span>
+          </div>
+          <div className="traffic-pills-row">
+            <span className="traffic-pill pos">
+              <span>🟢</span>
+              <span><strong>Verde:</strong> Mejoró / Favorable (Baja inflación o pobreza, sube salario, aumentan reservas)</span>
+            </span>
+            <span className="traffic-pill neg">
+              <span>🔴</span>
+              <span><strong>Rojo:</strong> Empeoró / Alerta (Sube inflación o pobreza, cae salario, caen reservas)</span>
+            </span>
+            <span className="traffic-pill neutral">
+              <span>⚪</span>
+              <span><strong>Gris:</strong> Neutro / Estable (Sin cambios significativos)</span>
+            </span>
           </div>
         </div>
 

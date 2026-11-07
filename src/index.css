@@ -1116,3 +1116,370 @@ body {
     padding: 0 1rem;
   }
 }
+
+/* =========================================================
+   SISTEMA DE CLARIDAD VISUAL, SEMÁFORO Y MICRO-ANIMACIONES
+   ========================================================= */
+
+/* Guía Visual del Semáforo ("¿Cómo leer los colores?") */
+.traffic-guide-banner {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.25rem;
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.traffic-guide-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.traffic-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.traffic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition: transform 0.15s ease;
+}
+
+.traffic-pill:hover {
+  transform: translateY(-1px);
+}
+
+.traffic-pill.pos {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.traffic-pill.neg {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.traffic-pill.neutral {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+/* Badges Semafóricos de Alto Contraste */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.status-badge.pos {
+  background: #ecfdf5;
+  border: 1.5px solid #10b981;
+  color: #047857;
+}
+
+.status-badge.neg {
+  background: #fef2f2;
+  border: 1.5px solid #ef4444;
+  color: #b91c1c;
+}
+
+.status-badge.neutral {
+  background: #f1f5f9;
+  border: 1.5px solid #94a3b8;
+  color: #334155;
+}
+
+/* Scorecard Visual Rápido para Gobiernos */
+.quick-scorecard {
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid var(--border-subtle);
+  animation: fadeInUp 0.35s ease-out;
+}
+
+.scorecard-headline-box {
+  background: var(--bg-page);
+  border-left: 4px solid var(--accent);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+
+.scorecard-headline {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.scorecard-takeaway {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.scorecard-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
+}
+
+.scorecard-pillar-card {
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.scorecard-pillar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.scorecard-pillar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.scorecard-pillar-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.scorecard-pillar-metric {
+  font-family: var(--font-mono);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.15rem;
+}
+
+.scorecard-pillar-explanation {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+/* Barras visuales de impacto */
+.visual-meter-track {
+  width: 100%;
+  height: 6px;
+  background: var(--border-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+
+.visual-meter-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.visual-meter-fill.pos {
+  background: linear-gradient(90deg, #34d399, #059669);
+}
+
+.visual-meter-fill.neg {
+  background: linear-gradient(90deg, #f87171, #dc2626);
+}
+
+.visual-meter-fill.neutral {
+  background: linear-gradient(90deg, #94a3b8, #475569);
+}
+
+/* Dual Bar Chart para Módulo Distributivo */
+.distributive-dual-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease;
+}
+
+.distributive-dual-card:hover {
+  transform: translateY(-2px);
+}
+
+.distributive-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.distributive-dual-track {
+  flex: 1;
+  height: 16px;
+  background: var(--bg-elevated);
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.distributive-bar-left {
+  height: 100%;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  border-radius: 9999px 0 0 9999px;
+  transition: width 0.6s ease;
+}
+
+.distributive-bar-right {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 0 9999px 9999px 0;
+  transition: width 0.6s ease;
+}
+
+/* Flujo Visual de Fórmulas (Reemplazo didáctico a las fórmulas académicas crudas) */
+.visual-formula-card {
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  margin: 0.85rem 0;
+}
+
+.visual-formula-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin: 1.15rem 0;
+}
+
+.visual-formula-box {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.15rem;
+  text-align: center;
+  min-width: 170px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease;
+}
+
+.visual-formula-box:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.visual-formula-box.result {
+  border-color: var(--positive);
+  background: #f0fdf4;
+}
+
+.visual-formula-box-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.visual-formula-box-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+}
+
+.visual-formula-box-value {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.visual-formula-operator {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  user-select: none;
+}
+
+.visual-formula-example-box {
+  background: var(--bg-surface);
+  border-left: 4px solid var(--positive);
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Animaciones suaves */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.gov-card {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+}
+
+.gov-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+

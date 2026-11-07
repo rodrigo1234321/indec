@@ -285,39 +285,87 @@ export default function MethodologyAndDataAudit({ methodMode, readingLevel }) {
               Fórmulas Estadísticas Aplicadas en el Observatorio
             </h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              <div
-                style={{
-                  background: 'var(--bg-page)',
-                  padding: '0.85rem 1rem',
-                  borderRadius: 'var(--radius-sm)',
-                  borderLeft: '4px solid var(--accent)'
-                }}
-              >
-                <strong>1. Salario Real Medido en Canastas Básicas Totales (CBT):</strong>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '0.3rem 0', color: 'var(--accent)' }}>
-                  Salario_CBT(t) = Salario_Nominal_Medio(t) ÷ CBT_Adulto_Equivalente(t)
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div className="visual-formula-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                  <span style={{ fontSize: '1.35rem' }}>🛒</span>
+                  <strong style={{ fontSize: '1.1rem', fontFamily: 'var(--font-serif)' }}>
+                    1. ¿Cómo se mide el poder de compra real en Canastas Básicas?
+                  </strong>
                 </div>
-                <p style={{ fontSize: '0.77rem', color: 'var(--text-secondary)' }}>
-                  Elimina el problema de la elección de índice deflactante (IPC) al medir cuántas canastas normativas completas de bienes y servicios puede adquirir un salario en cada momento.
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+                  En vez de usar fórmulas matemáticas complejas o enredarse con qué índice de inflación elegir, medimos lo más concreto de la vida cotidiana: <strong>¿cuántas canastas completas de alimentos, servicios y transporte puede comprar un sueldo medio?</strong>
                 </p>
+
+                <div className="visual-formula-flow">
+                  <div className="visual-formula-box">
+                    <span className="visual-formula-box-icon">💵</span>
+                    <span className="visual-formula-box-label">Tu Sueldo de Bolsillo</span>
+                    <span className="visual-formula-box-value">Sueldo medio: ~$1.050.000</span>
+                  </div>
+
+                  <span className="visual-formula-operator">÷</span>
+
+                  <div className="visual-formula-box">
+                    <span className="visual-formula-box-icon">🛒</span>
+                    <span className="visual-formula-box-label">Costo Canasta INDEC</span>
+                    <span className="visual-formula-box-value">CBT sep-2026: $528.318</span>
+                  </div>
+
+                  <span className="visual-formula-operator">=</span>
+
+                  <div className="visual-formula-box result">
+                    <span className="visual-formula-box-icon">📦</span>
+                    <span className="visual-formula-box-label">Canastas que Llenás</span>
+                    <span className="visual-formula-box-value" style={{ fontWeight: 800, color: 'var(--positive)', fontSize: '0.95rem' }}>
+                      1,98 Canastas Reales
+                    </span>
+                  </div>
+                </div>
+
+                <div className="visual-formula-example-box">
+                  <strong>💡 Ejemplo simple que cualquiera entiende:</strong> Si tu sueldo sube de $500.000 a $800.000 (+60%), pero la canasta del supermercado y servicios sube de $250.000 a $600.000 (+140%), antes comprabas 2 canastas completas y ahora solo 1,33. <strong>Perdiste poder adquisitivo real aunque cobres más billetes nominales.</strong> Por eso medimos a los 4 gobiernos en canastas completas del INDEC.
+                </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-page)',
-                  padding: '0.85rem 1rem',
-                  borderRadius: 'var(--radius-sm)',
-                  borderLeft: '4px solid var(--positive)'
-                }}
-              >
-                <strong>2. Trayectorias Normalizadas a Base 100:</strong>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.76rem', margin: '0.3rem 0', color: 'var(--positive)' }}>
-                  Índice_Normalizado(m) = [ Valor_Indicador(m) ÷ Valor_Indicador(Mes_Asunción) ] × 100
+              <div className="visual-formula-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                  <span style={{ fontSize: '1.35rem' }}>⏱️</span>
+                  <strong style={{ fontSize: '1.1rem', fontFamily: 'var(--font-serif)' }}>
+                    2. ¿Cómo funciona la comparación a Igual Tiempo (Base 100)?
+                  </strong>
                 </div>
-                <p style={{ fontSize: '0.77rem', color: 'var(--text-secondary)' }}>
-                  Permite comparar a igual tiempo de gestión (Mes 0, 6, 12, 24, 34/36) la velocidad de cambio de cada presidente respecto a su propio punto de partida.
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+                  Cada presidente asumió con un punto de partida diferente y durante una cantidad distinta de meses. Para no favorecer ni perjudicar a nadie, <strong>ponemos el contador en 100 el día que asume cada presidente</strong> y medimos quién mejoró o empeoró más rápido al mismo mes de gestión (Mes 6, 12, 24, 34).
                 </p>
+
+                <div className="visual-formula-flow">
+                  <div className="visual-formula-box">
+                    <span className="visual-formula-box-icon">🏁</span>
+                    <span className="visual-formula-box-label">Día de Asunción</span>
+                    <span className="visual-formula-box-value" style={{ fontWeight: 800 }}>Punto de partida = 100</span>
+                  </div>
+
+                  <span className="visual-formula-operator">➔</span>
+
+                  <div className="visual-formula-box result">
+                    <span className="visual-formula-box-icon">📈</span>
+                    <span className="visual-formula-box-label">Si sube a 105</span>
+                    <span className="visual-formula-box-value" style={{ color: 'var(--positive)', fontWeight: 700 }}>
+                      🟢 Mejoró +5%
+                    </span>
+                  </div>
+
+                  <span className="visual-formula-operator">o</span>
+
+                  <div className="visual-formula-box" style={{ borderColor: 'var(--negative)', background: '#fff5f5' }}>
+                    <span className="visual-formula-box-icon">📉</span>
+                    <span className="visual-formula-box-label">Si baja a 85</span>
+                    <span className="visual-formula-box-value" style={{ color: 'var(--negative)', fontWeight: 700 }}>
+                      🔴 Empeoró −15%
+                    </span>
+                  </div>
+                </div>
               </div>
 
               <div

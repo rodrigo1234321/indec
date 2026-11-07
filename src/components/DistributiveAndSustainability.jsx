@@ -94,7 +94,7 @@ export default function DistributiveAndSustainability({ methodMode }) {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: '0.85rem'
               }}
             >
@@ -105,48 +105,64 @@ export default function DistributiveAndSustainability({ methodMode }) {
                   ? `${entry.varReal.toFixed(0)}% de la CBA`
                   : `${entry.varReal > 0 ? '+' : ''}${entry.varReal.toFixed(1).replace('.', ',')}% real`;
 
+                const isPos = entry.dir === 'pos';
+                const isNeg = entry.dir === 'neg';
+                const barWidth = Math.min(Math.abs(entry.varReal) * 2.2, 100);
+
                 return (
                   <div
                     key={gov.id}
                     style={{
                       background: 'var(--bg-page)',
                       borderLeft: `4px solid ${gov.color}`,
-                      padding: '0.75rem 0.9rem',
-                      borderRadius: 'var(--radius-sm)'
+                      padding: '0.85rem 1rem',
+                      borderRadius: 'var(--radius-sm)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      gap: '0.45rem'
                     }}
                   >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}
-                    >
-                      <span style={{ fontSize: '0.78rem', fontWeight: 700 }}>
-                        {gov.order}° {gov.president.split(' ').slice(-1)[0]} ({gov.yearsLabel})
-                      </span>
-                      <span
+                    <div>
+                      <div
                         style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontWeight: 700,
-                          fontSize: '0.88rem',
-                          color:
-                            entry.dir === 'pos'
-                              ? 'var(--positive)'
-                              : entry.dir === 'neg'
-                              ? 'var(--negative)'
-                              : 'var(--text-primary)'
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginBottom: '0.35rem'
                         }}
                       >
-                        {valFormatted}
-                      </span>
+                        <span style={{ fontSize: '0.78rem', fontWeight: 700 }}>
+                          {gov.order}° {gov.president.split(' ').slice(-1)[0]}
+                        </span>
+                        <span
+                          className={`status-badge ${
+                            isPos ? 'pos' : isNeg ? 'neg' : 'neutral'
+                          }`}
+                        >
+                          <span>{isPos ? '🟢 Ganaron' : isNeg ? '🔴 Perdieron' : '⚪ Estable'}</span>
+                          <span>{valFormatted}</span>
+                        </span>
+                      </div>
+
+                      {/* Visual Progress Meter */}
+                      <div className="visual-meter-track" style={{ height: '7px', margin: '0.45rem 0' }}>
+                        <div
+                          className={`visual-meter-fill ${
+                            isPos ? 'pos' : isNeg ? 'neg' : 'neutral'
+                          }`}
+                          style={{
+                            width: `${Math.max(barWidth, 12)}%`
+                          }}
+                        />
+                      </div>
                     </div>
+
                     <p
                       style={{
-                        fontSize: '0.76rem',
+                        fontSize: '0.78rem',
                         color: 'var(--text-secondary)',
-                        marginTop: '0.3rem',
-                        lineHeight: 1.4
+                        lineHeight: 1.45
                       }}
                     >
                       {entry.status}

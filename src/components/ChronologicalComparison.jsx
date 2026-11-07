@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GOVERNMENTS } from '../data/indecData';
+import { GOVERNMENTS, getGovernmentQuickScorecard } from '../data/indecData';
 
 export default function ChronologicalComparison({ methodMode, readingLevel }) {
   const [selectedGovFilter, setSelectedGovFilter] = useState('all');
@@ -140,11 +140,74 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                 <span className="gov-ideology-chip">{gov.ideologyTag}</span>
               </div>
 
+              {/* Veredicto Visual Rápido (Semáforo de Gestión de 4 Pilares) */}
+              {(() => {
+                const sc = getGovernmentQuickScorecard(gov, effectiveKey);
+                return (
+                  <div className="quick-scorecard">
+                    <div className="scorecard-headline-box">
+                      <h4 className="scorecard-headline">{sc.mainHeadline}</h4>
+                      <p className="scorecard-takeaway">{sc.takeaway}</p>
+                    </div>
+
+                    <div className="scorecard-pillars-grid">
+                      {sc.pillars.map((pil) => (
+                        <div key={pil.id} className="scorecard-pillar-card">
+                          <div className="scorecard-pillar-header">
+                            <span className="scorecard-pillar-label">{pil.label}</span>
+                            <span
+                              className={`status-badge ${
+                                pil.tone === 'positive'
+                                  ? 'pos'
+                                  : pil.tone === 'negative'
+                                  ? 'neg'
+                                  : 'neutral'
+                              }`}
+                            >
+                              <span>{pil.icon}</span>
+                              <span>{pil.statusText}</span>
+                            </span>
+                          </div>
+                          <div>
+                            <div className="scorecard-pillar-metric">{pil.metric}</div>
+                            <div className="visual-meter-track">
+                              <div
+                                className={`visual-meter-fill ${
+                                  pil.tone === 'positive'
+                                    ? 'pos'
+                                    : pil.tone === 'negative'
+                                    ? 'neg'
+                                    : 'neutral'
+                                }`}
+                                style={{
+                                  width:
+                                    pil.tone === 'positive'
+                                      ? '85%'
+                                      : pil.tone === 'negative'
+                                      ? '35%'
+                                      : '55%'
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <p className="scorecard-pillar-explanation">{pil.explanation}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
               {/* KPI Grid adapts to the selected perspective */}
               {perspective === 'igual_tiempo' ? (
                 <div className="gov-kpi-grid">
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Inflación al Mes 34</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Inflación al Mes 34</span>
+                      <span className={`status-badge ${m.inflacionM34 < m.inflacionInicio ? 'pos' : 'neg'}`}>
+                        {m.inflacionM34 < m.inflacionInicio ? '🟢 Bajó' : '🔴 Subió'}
+                      </span>
+                    </div>
                     <span className="gov-kpi-value">
                       {formatNum(m.inflacionM34)} i.a.
                     </span>
@@ -153,7 +216,12 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                     </span>
                   </div>
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Pobreza al Mes 34</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Pobreza al Mes 34</span>
+                      <span className={`status-badge ${m.pobrezaM34 <= m.pobrezaInicio ? 'pos' : 'neg'}`}>
+                        {m.pobrezaM34 <= m.pobrezaInicio ? '🟢 Bajó' : '🔴 Subió'}
+                      </span>
+                    </div>
                     <span className="gov-kpi-value">
                       {formatNum(m.pobrezaM34)}
                     </span>
@@ -162,7 +230,12 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                     </span>
                   </div>
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Salario Real (34 Meses)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Salario Real (34m)</span>
+                      <span className={`status-badge ${m.salarioRealM34 >= 0 ? 'pos' : 'neg'}`}>
+                        {m.salarioRealM34 >= 0 ? '🟢 Creció' : '🔴 Cayó'}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.salarioRealM34 >= 0 ? 'val-pos' : 'val-neg'
@@ -170,10 +243,15 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                     >
                       {formatSigned(m.salarioRealM34)}
                     </span>
-                    <span className="gov-kpi-sub">Acumulado primeros 34m</span>
+                    <span className="gov-kpi-sub">Acumulado primeros 34 meses</span>
                   </div>
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Actividad EMAE (34 Meses)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Actividad EMAE (34m)</span>
+                      <span className={`status-badge ${m.pbiVariacionM34 >= 0 ? 'pos' : 'neg'}`}>
+                        {m.pbiVariacionM34 >= 0 ? '🟢 Creció' : '🔴 Cayó'}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.pbiVariacionM34 >= 0 ? 'val-pos' : 'val-neg'
@@ -187,7 +265,14 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               ) : (
                 <div className="gov-kpi-grid">
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Inflación (Recibió → Dejó)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Inflación (Inicio → Fin)</span>
+                      <span className={`status-badge ${m.inflacionFin < m.inflacionInicio ? 'pos' : 'neg'}`}>
+                        {m.inflacionFin < m.inflacionInicio
+                          ? `🟢 Bajó ${formatSigned(m.inflacionFin - m.inflacionInicio, ' pp')}`
+                          : `🔴 Subió ${formatSigned(m.inflacionFin - m.inflacionInicio, ' pp')}`}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.inflacionFin < m.inflacionInicio ? 'val-pos' : 'val-neg'
@@ -203,7 +288,14 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                   </div>
 
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Pobreza EPH (Inicio → Fin)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Pobreza EPH</span>
+                      <span className={`status-badge ${m.pobrezaDiff <= 0 ? 'pos' : 'neg'}`}>
+                        {m.pobrezaDiff <= 0
+                          ? `🟢 Bajó ${formatSigned(m.pobrezaDiff, ' pp')}`
+                          : `🔴 Subió ${formatSigned(m.pobrezaDiff, ' pp')}`}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.pobrezaDiff <= 0 ? 'val-pos' : 'val-neg'
@@ -219,7 +311,14 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                   </div>
 
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Salario Real y Canastas</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Salario en Canastas</span>
+                      <span className={`status-badge ${m.salarioRealVar >= 0 ? 'pos' : 'neg'}`}>
+                        {m.salarioRealVar >= 0
+                          ? `🟢 Subió ${formatSigned(m.salarioRealVar)}`
+                          : `🔴 Cayó ${formatSigned(m.salarioRealVar)}`}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.salarioRealVar >= 0 ? 'val-pos' : 'val-neg'
@@ -233,7 +332,12 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                   </div>
 
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Empleo y Desocupación EPH</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Desempleo EPH</span>
+                      <span className={`status-badge ${m.desempleoFin <= m.desempleoInicio ? 'pos' : 'neg'}`}>
+                        {m.desempleoFin <= m.desempleoInicio ? '🟢 Bajó' : '🔴 Subió'}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.desempleoFin <= m.desempleoInicio ? 'val-pos' : 'val-neg'
@@ -247,7 +351,12 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                   </div>
 
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Fiscal y Reservas Netas</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Fiscal y Reservas</span>
+                      <span className={`status-badge ${m.resultadoFiscalFinancieroFinPBI >= 0 ? 'pos' : 'neg'}`}>
+                        {m.resultadoFiscalFinancieroFinPBI >= 0 ? '🟢 Superávit' : '🔴 Déficit'}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.resultadoFiscalFinancieroFinPBI >= 0 ? 'val-pos' : 'val-neg'
@@ -261,7 +370,12 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                   </div>
 
                   <div className="gov-kpi-cell">
-                    <span className="gov-kpi-label">Seguridad (Homicidios SNIC)</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="gov-kpi-label">Seguridad (SNIC)</span>
+                      <span className={`status-badge ${m.homicidiosFin <= m.homicidiosInicio ? 'pos' : 'neg'}`}>
+                        {m.homicidiosFin <= m.homicidiosInicio ? '🟢 Bajó' : '🔴 Subió'}
+                      </span>
+                    </div>
                     <span
                       className={`gov-kpi-value ${
                         m.homicidiosFin <= m.homicidiosInicio ? 'val-pos' : 'val-neg'
