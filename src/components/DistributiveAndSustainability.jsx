@@ -204,10 +204,10 @@ export default function DistributiveAndSustainability({ methodMode }) {
               Impacto en las 6 Regiones Estadísticas del INDEC
             </h3>
             <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Los promedios nacionales ocultan realidades dispares. Compará la inflación interanual (/v1/ipc_nacional regional), la pobreza (/v1/pobreza_eph) y la valorización de canastas en cada territorio.
+              Los promedios nacionales ocultan realidades dispares. Compará la inflación interanual regional, la incidencia de pobreza urbana y la valorización de canastas en cada territorio.
             </p>
           </div>
-          <span className="endpoint-pill">/v1/ipc_nacional + /v1/pobreza_eph</span>
+          <span className="endpoint-pill">INDEC · Precios Regionales y EPH Urbana</span>
         </div>
 
         {/* Region selector buttons */}

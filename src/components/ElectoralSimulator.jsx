@@ -393,15 +393,33 @@ export default function ElectoralSimulator({ methodMode }) {
               background: 'var(--bg-elevated)',
               border: '1px solid var(--border-strong)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.9rem 1rem',
-              fontSize: '0.78rem'
+              padding: '1rem 1.15rem',
+              fontSize: '0.8rem'
             }}
           >
-            <strong>Fórmula Pública y Análisis de Sensibilidad Metodológica:</strong>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', margin: '0.35rem 0' }}>
-              Puntaje(G) = Σ [ Peso_Usuario(i) × Desempeño_Normalizado(G, i) ] ÷ Σ Peso_Usuario(i)
+            <strong>¿Cómo se calcula tu coincidencia con cada gobierno? (100% Transparente):</strong>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                alignItems: 'center',
+                margin: '0.65rem 0',
+                padding: '0.65rem 0.85rem',
+                background: 'var(--bg-surface)',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--border-subtle)',
+                fontWeight: 600,
+                fontSize: '0.78rem'
+              }}
+            >
+              <span>🎯 Tu Importancia (1 a 10)</span>
+              <span style={{ color: 'var(--accent)', fontWeight: 800 }}>×</span>
+              <span>📊 Resultado Real en Datos INDEC (0 a 100)</span>
+              <span style={{ color: 'var(--accent)', fontWeight: 800 }}>=</span>
+              <span style={{ color: 'var(--positive)', fontWeight: 700 }}>🏆 Puntaje Final de Coincidencia</span>
             </div>
-            <ul style={{ paddingLeft: '1.1rem', marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+            <ul style={{ paddingLeft: '1.1rem', marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
               <li>
                 Con <strong>Reconstrucción Histórica Comparable (2011–2015)</strong>, el 1° lugar para tus prioridades es:{' '}
                 <strong>{evaluation.sensitivity.reconstruccionWinner.president} ({evaluation.sensitivity.reconstruccionWinner.finalScore.toFixed(1)} pts)</strong>.

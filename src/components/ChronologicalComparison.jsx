@@ -112,9 +112,15 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
       >
         {filteredGovernments.map((gov) => {
           const m = gov.metrics[effectiveKey];
-          const mRec = gov.metrics.reconstruccion;
-          const mOfi = gov.metrics.oficial;
           const cb = gov.costBenefitCard;
+          const sc = getGovernmentQuickScorecard(gov, effectiveKey);
+
+          const inflImproved = m.inflacionFin < m.inflacionInicio;
+          const pobImproved = m.pobrezaDiff <= 0;
+          const salImproved = m.salarioRealVar >= 0;
+          const desImproved = m.desempleoFin <= m.desempleoInicio;
+          const fiscImproved = m.resultadoFiscalFinancieroFinPBI >= 0;
+          const segImproved = m.homicidiosFin <= m.homicidiosInicio;
 
           return (
             <article key={gov.id} className="gov-card" id={`gov-card-${gov.id}`}>
@@ -138,308 +144,298 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                 <h3 className="gov-president-name">{gov.president}</h3>
                 <p className="gov-party-name">{gov.party}</p>
                 <span className="gov-ideology-chip">{gov.ideologyTag}</span>
+
+                <div className="gov-executive-summary" style={{ borderLeftColor: gov.color }}>
+                  <h4 className="gov-executive-headline">{sc.mainHeadline}</h4>
+                  <p className="gov-executive-takeaway">{sc.takeaway}</p>
+                </div>
               </div>
 
-              {/* Veredicto Visual Rápido (Semáforo de Gestión de 4 Pilares) */}
-              {(() => {
-                const sc = getGovernmentQuickScorecard(gov, effectiveKey);
-                return (
-                  <div className="quick-scorecard">
-                    <div className="scorecard-headline-box">
-                      <h4 className="scorecard-headline">{sc.mainHeadline}</h4>
-                      <p className="scorecard-takeaway">{sc.takeaway}</p>
-                    </div>
-
-                    <div className="scorecard-pillars-grid">
-                      {sc.pillars.map((pil) => (
-                        <div key={pil.id} className="scorecard-pillar-card">
-                          <div className="scorecard-pillar-header">
-                            <span className="scorecard-pillar-label">{pil.label}</span>
-                            <span
-                              className={`status-badge ${
-                                pil.tone === 'positive'
-                                  ? 'pos'
-                                  : pil.tone === 'negative'
-                                  ? 'neg'
-                                  : 'neutral'
-                              }`}
-                            >
-                              <span>{pil.icon}</span>
-                              <span>{pil.statusText}</span>
-                            </span>
-                          </div>
-                          <div>
-                            <div className="scorecard-pillar-metric">{pil.metric}</div>
-                            <div className="visual-meter-track">
-                              <div
-                                className={`visual-meter-fill ${
-                                  pil.tone === 'positive'
-                                    ? 'pos'
-                                    : pil.tone === 'negative'
-                                    ? 'neg'
-                                    : 'neutral'
-                                }`}
-                                style={{
-                                  width:
-                                    pil.tone === 'positive'
-                                      ? '85%'
-                                      : pil.tone === 'negative'
-                                      ? '35%'
-                                      : '55%'
-                                }}
-                              />
-                            </div>
-                          </div>
-                          <p className="scorecard-pillar-explanation">{pil.explanation}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* KPI Grid adapts to the selected perspective */}
+              {/* Tablero Unificado de Indicadores Clave (Sin duplicaciones y con barras visuales) */}
               {perspective === 'igual_tiempo' ? (
                 <div className="gov-kpi-grid">
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="gov-kpi-top">
                       <span className="gov-kpi-label">Inflación al Mes 34</span>
                       <span className={`status-badge ${m.inflacionM34 < m.inflacionInicio ? 'pos' : 'neg'}`}>
                         {m.inflacionM34 < m.inflacionInicio ? '🟢 Bajó' : '🔴 Subió'}
                       </span>
                     </div>
-                    <span className="gov-kpi-value">
-                      {formatNum(m.inflacionM34)} i.a.
+                    <span className={`gov-kpi-value ${m.inflacionM34 < m.inflacionInicio ? 'val-pos' : 'val-neg'}`}>
+                      {formatNum(m.inflacionInicio)} → {formatNum(m.inflacionM34)}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${m.inflacionM34 < m.inflacionInicio ? 'pos' : 'neg'}`}
+                        style={{ width: m.inflacionM34 < m.inflacionInicio ? '82%' : '38%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
-                      Recibió en: {formatNum(m.inflacionInicio)}
+                      Ritmo anual al mes 34 de gestión
                     </span>
                   </div>
+
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className="gov-kpi-top">
                       <span className="gov-kpi-label">Pobreza al Mes 34</span>
                       <span className={`status-badge ${m.pobrezaM34 <= m.pobrezaInicio ? 'pos' : 'neg'}`}>
                         {m.pobrezaM34 <= m.pobrezaInicio ? '🟢 Bajó' : '🔴 Subió'}
                       </span>
                     </div>
-                    <span className="gov-kpi-value">
-                      {formatNum(m.pobrezaM34)}
+                    <span className={`gov-kpi-value ${m.pobrezaM34 <= m.pobrezaInicio ? 'val-pos' : 'val-neg'}`}>
+                      {formatNum(m.pobrezaInicio)} → {formatNum(m.pobrezaM34)}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${m.pobrezaM34 <= m.pobrezaInicio ? 'pos' : 'neg'}`}
+                        style={{ width: m.pobrezaM34 <= m.pobrezaInicio ? '80%' : '38%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
-                      Recibió en: {formatNum(m.pobrezaInicio)}
+                      Porcentaje de población urbana (EPH)
                     </span>
                   </div>
+
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Salario Real (34m)</span>
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Salario Real (Mes 34)</span>
                       <span className={`status-badge ${m.salarioRealM34 >= 0 ? 'pos' : 'neg'}`}>
-                        {m.salarioRealM34 >= 0 ? '🟢 Creció' : '🔴 Cayó'}
+                        {m.salarioRealM34 >= 0 ? '🟢 Ganó' : '🔴 Perdió'}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.salarioRealM34 >= 0 ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${m.salarioRealM34 >= 0 ? 'val-pos' : 'val-neg'}`}>
                       {formatSigned(m.salarioRealM34)}
                     </span>
-                    <span className="gov-kpi-sub">Acumulado primeros 34 meses</span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${m.salarioRealM34 >= 0 ? 'pos' : 'neg'}`}
+                        style={{ width: m.salarioRealM34 >= 0 ? '78%' : '36%' }}
+                      />
+                    </div>
+                    <span className="gov-kpi-sub">Poder de compra en primeros 34 meses</span>
                   </div>
+
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Actividad EMAE (34m)</span>
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Actividad EMAE (Mes 34)</span>
                       <span className={`status-badge ${m.pbiVariacionM34 >= 0 ? 'pos' : 'neg'}`}>
                         {m.pbiVariacionM34 >= 0 ? '🟢 Creció' : '🔴 Cayó'}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.pbiVariacionM34 >= 0 ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${m.pbiVariacionM34 >= 0 ? 'val-pos' : 'val-neg'}`}>
                       {formatSigned(m.pbiVariacionM34)}
                     </span>
-                    <span className="gov-kpi-sub">Desempleo M34: {formatNum(m.desempleoM34)}</span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${m.pbiVariacionM34 >= 0 ? 'pos' : 'neg'}`}
+                        style={{ width: m.pbiVariacionM34 >= 0 ? '78%' : '35%' }}
+                      />
+                    </div>
+                    <span className="gov-kpi-sub">Desempleo al mes 34: {formatNum(m.desempleoM34)}</span>
                   </div>
                 </div>
               ) : (
                 <div className="gov-kpi-grid">
+                  {/* 1. Inflación */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Inflación (Inicio → Fin)</span>
-                      <span className={`status-badge ${m.inflacionFin < m.inflacionInicio ? 'pos' : 'neg'}`}>
-                        {m.inflacionFin < m.inflacionInicio
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Inflación Anual</span>
+                      <span className={`status-badge ${inflImproved ? 'pos' : 'neg'}`}>
+                        {inflImproved
                           ? `🟢 Bajó ${formatSigned(m.inflacionFin - m.inflacionInicio, ' pp')}`
                           : `🔴 Subió ${formatSigned(m.inflacionFin - m.inflacionInicio, ' pp')}`}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.inflacionFin < m.inflacionInicio ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${inflImproved ? 'val-pos' : 'val-neg'}`}>
                       {formatNum(m.inflacionInicio)} → {formatNum(m.inflacionFin)}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${inflImproved ? 'pos' : 'neg'}`}
+                        style={{ width: inflImproved ? '85%' : '35%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
                       {methodMode === 'comparacion' && gov.id === 'cfk'
-                        ? `Rec: 29,8% | Ofi: 15,6% prom.`
-                        : `Promedio: ${formatNum(m.inflacionAnualPromedio)}/año`}
+                        ? `Reconstrucción: 29,8% | Oficial: 15,6% anual`
+                        : `Promedio del mandato: ${formatNum(m.inflacionAnualPromedio)} anual`}
                     </span>
                   </div>
 
+                  {/* 2. Pobreza */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Pobreza EPH</span>
-                      <span className={`status-badge ${m.pobrezaDiff <= 0 ? 'pos' : 'neg'}`}>
-                        {m.pobrezaDiff <= 0
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Pobreza (INDEC)</span>
+                      <span className={`status-badge ${pobImproved ? 'pos' : 'neg'}`}>
+                        {pobImproved
                           ? `🟢 Bajó ${formatSigned(m.pobrezaDiff, ' pp')}`
                           : `🔴 Subió ${formatSigned(m.pobrezaDiff, ' pp')}`}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.pobrezaDiff <= 0 ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${pobImproved ? 'val-pos' : 'val-neg'}`}>
                       {formatNum(m.pobrezaInicio)} → {formatNum(m.pobrezaFin)}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${pobImproved ? 'pos' : 'neg'}`}
+                        style={{ width: pobImproved ? '84%' : '36%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
                       {methodMode === 'comparacion' && gov.id === 'cfk'
-                        ? `Rec: 30,1% | Ofi 2013: 4,7%`
-                        : `Dif: ${formatSigned(m.pobrezaDiff, ' pp')} · Indig: ${formatNum(m.indigenciaFin)}`}
+                        ? `Homogénea: 30,1% | Oficial 2013: 4,7%`
+                        : `Indigencia al cierre: ${formatNum(m.indigenciaFin)}`}
                     </span>
                   </div>
 
+                  {/* 3. Poder de Compra */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Salario en Canastas</span>
-                      <span className={`status-badge ${m.salarioRealVar >= 0 ? 'pos' : 'neg'}`}>
-                        {m.salarioRealVar >= 0
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Poder de Compra</span>
+                      <span className={`status-badge ${salImproved ? 'pos' : gov.id === 'cfk' ? 'pos' : 'neg'}`}>
+                        {gov.id === 'cfk'
+                          ? '🟢 Récord: 1,82 CBT'
+                          : salImproved
                           ? `🟢 Subió ${formatSigned(m.salarioRealVar)}`
                           : `🔴 Cayó ${formatSigned(m.salarioRealVar)}`}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.salarioRealVar >= 0 ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
-                      {formatSigned(m.salarioRealVar)} ({m.salariosEnCBT.toFixed(2).replace('.', ',')} CBT)
+                    <span className={`gov-kpi-value ${salImproved || gov.id === 'cfk' ? 'val-pos' : 'val-neg'}`}>
+                      {m.salariosEnCBT.toFixed(2).replace('.', ',')} Canastas ({formatSigned(m.salarioRealVar)})
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${salImproved || gov.id === 'cfk' ? 'pos' : 'neg'}`}
+                        style={{ width: salImproved || gov.id === 'cfk' ? '85%' : '38%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
-                      Reg: {formatSigned(m.salarioPrivadoRegVar)} · Inf: {formatSigned(m.salarioInformalVar)}
+                      Formal: {formatSigned(m.salarioPrivadoRegVar)} · Informal: {formatSigned(m.salarioInformalVar)}
                     </span>
                   </div>
 
+                  {/* 4. Desempleo y Trabajo */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Desempleo EPH</span>
-                      <span className={`status-badge ${m.desempleoFin <= m.desempleoInicio ? 'pos' : 'neg'}`}>
-                        {m.desempleoFin <= m.desempleoInicio ? '🟢 Bajó' : '🔴 Subió'}
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Desempleo Urbano</span>
+                      <span className={`status-badge ${desImproved ? 'pos' : 'neg'}`}>
+                        {desImproved
+                          ? `🟢 Bajó a ${formatNum(m.desempleoFin)}`
+                          : `🔴 Subió a ${formatNum(m.desempleoFin)}`}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.desempleoFin <= m.desempleoInicio ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${desImproved ? 'val-pos' : 'val-neg'}`}>
                       {formatNum(m.desempleoInicio)} → {formatNum(m.desempleoFin)}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${desImproved ? 'pos' : 'neg'}`}
+                        style={{ width: desImproved ? '82%' : '38%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
-                      Formal: {formatNum(m.empleoFormalTasaFin)} · Inf: {formatNum(m.empleoInformalTasaFin)}
+                      Empleo formal: {formatNum(m.empleoFormalTasaFin)} · Informal: {formatNum(m.empleoInformalTasaFin)}
                     </span>
                   </div>
 
+                  {/* 5. Cuentas Públicas y Reservas */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Fiscal y Reservas</span>
-                      <span className={`status-badge ${m.resultadoFiscalFinancieroFinPBI >= 0 ? 'pos' : 'neg'}`}>
-                        {m.resultadoFiscalFinancieroFinPBI >= 0 ? '🟢 Superávit' : '🔴 Déficit'}
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Cuentas y Reservas</span>
+                      <span className={`status-badge ${fiscImproved ? 'pos' : 'neg'}`}>
+                        {fiscImproved ? '🟢 Superávit Fiscal' : '🔴 Déficit Fiscal'}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.resultadoFiscalFinancieroFinPBI >= 0 ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
-                      {formatSigned(m.resultadoFiscalFinancieroFinPBI, '% PBI')} fin.
+                    <span className={`gov-kpi-value ${fiscImproved ? 'val-pos' : 'val-neg'}`}>
+                      {formatSigned(m.resultadoFiscalFinancieroFinPBI, '% PBI')}
                     </span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${fiscImproved ? 'pos' : 'neg'}`}
+                        style={{ width: fiscImproved ? '88%' : '32%' }}
+                      />
+                    </div>
                     <span className="gov-kpi-sub">
-                      Res. Netas: {m.reservasNetasFinUSD >= 0 ? '+' : ''}USD {m.reservasNetasFinUSD.toLocaleString('es-AR')} M
+                      Reservas Netas BCRA: {m.reservasNetasFinUSD >= 0 ? '+' : ''}USD {m.reservasNetasFinUSD.toLocaleString('es-AR')} M
                     </span>
                   </div>
 
+                  {/* 6. Seguridad Ciudadana */}
                   <div className="gov-kpi-cell">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="gov-kpi-label">Seguridad (SNIC)</span>
-                      <span className={`status-badge ${m.homicidiosFin <= m.homicidiosInicio ? 'pos' : 'neg'}`}>
-                        {m.homicidiosFin <= m.homicidiosInicio ? '🟢 Bajó' : '🔴 Subió'}
+                    <div className="gov-kpi-top">
+                      <span className="gov-kpi-label">Tasa de Homicidios</span>
+                      <span className={`status-badge ${segImproved ? 'pos' : 'neg'}`}>
+                        {segImproved ? '🟢 Bajó en el período' : '🔴 Subió en el período'}
                       </span>
                     </div>
-                    <span
-                      className={`gov-kpi-value ${
-                        m.homicidiosFin <= m.homicidiosInicio ? 'val-pos' : 'val-neg'
-                      }`}
-                    >
+                    <span className={`gov-kpi-value ${segImproved ? 'val-pos' : 'val-neg'}`}>
                       {m.homicidiosInicio.toFixed(1).replace('.', ',')} → {m.homicidiosFin.toFixed(1).replace('.', ',')}
                     </span>
-                    <span className="gov-kpi-sub">Cada 100.000 habitantes</span>
+                    <div className="visual-meter-track">
+                      <div
+                        className={`visual-meter-fill ${segImproved ? 'pos' : 'neg'}`}
+                        style={{ width: segImproved ? '82%' : '35%' }}
+                      />
+                    </div>
+                    <span className="gov-kpi-sub">Homicidios cada 100.000 habitantes (SNIC)</span>
                   </div>
                 </div>
               )}
 
-              {/* Card Body */}
+              {/* Card Body: Herencia + Balance Lado a Lado (Verde vs. Rojo) */}
               <div className="gov-card-body">
                 {perspective === 'costo_beneficio' ? (
                   <>
                     <div
                       style={{
                         background: 'var(--bg-elevated)',
-                        padding: '0.7rem 0.85rem',
+                        padding: '0.75rem 0.95rem',
                         borderRadius: 'var(--radius-sm)',
-                        fontSize: '0.8rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600
                       }}
                     >
                       {cb.headlineQuestion}
                     </div>
 
-                    <div>
-                      <h4 className="balance-group-title improved">
-                        ▲ Resultados Positivos Registrados
-                      </h4>
-                      <ul className="balance-list improved">
-                        {cb.positiveMetrics.map((pm, i) => (
-                          <li key={i}>
-                            <strong>{pm.label}: {pm.value}</strong> — {pm.detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <div className="gov-pros-cons-grid">
+                      <div className="gov-balance-box improved">
+                        <h4 className="balance-group-title improved">
+                          🟢 Resultados Positivos Logrados
+                        </h4>
+                        <ul className="balance-list improved">
+                          {cb.positiveMetrics.map((pm, i) => (
+                            <li key={i}>
+                              <strong>{pm.label}: {pm.value}</strong> — {pm.detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                    <div>
-                      <h4 className="balance-group-title worsened">
-                        ▼ Costos Simultáneos Observados en el Mismo Período
-                      </h4>
-                      <ul className="balance-list worsened">
-                        {cb.simultaneousCosts.map((sc, i) => (
-                          <li key={i}>
-                            <strong>{sc.label}: {sc.value}</strong> — {sc.detail}
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="gov-balance-box worsened">
+                        <h4 className="balance-group-title worsened">
+                          🔴 Costos Simultáneos en el Período
+                        </h4>
+                        <ul className="balance-list worsened">
+                          {cb.simultaneousCosts.map((scItem, i) => (
+                            <li key={i}>
+                              <strong>{scItem.label}: {scItem.value}</strong> — {scItem.detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
 
                     <div
                       style={{
-                        fontSize: '0.79rem',
+                        fontSize: '0.8rem',
                         color: 'var(--text-secondary)',
                         borderTop: '1px solid var(--border-subtle)',
-                        paddingTop: '0.65rem',
-                        lineHeight: 1.48
+                        paddingTop: '0.75rem',
+                        lineHeight: 1.5
                       }}
                     >
-                      <strong>Lectura integrada (sin atribuir causalidad única):</strong> {cb.neutralReading}
+                      <strong>Síntesis de resultados y costos:</strong> {cb.neutralReading}
                     </div>
                   </>
                 ) : (
@@ -447,14 +443,15 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                     <div
                       style={{
                         background: 'var(--bg-elevated)',
-                        padding: '0.65rem 0.8rem',
+                        padding: '0.75rem 0.95rem',
                         borderRadius: 'var(--radius-sm)',
-                        fontSize: '0.78rem',
-                        color: 'var(--text-secondary)'
+                        fontSize: '0.8rem',
+                        color: 'var(--text-secondary)',
+                        lineHeight: 1.48
                       }}
                     >
                       <strong style={{ color: 'var(--text-primary)' }}>
-                        Contexto e inercia heredada (12m previos):
+                        Punto de partida (Qué recibió al asumir):
                       </strong>{' '}
                       {gov.inheritedTrend}
                     </div>
@@ -464,41 +461,43 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                         style={{
                           background: 'var(--warning-bg)',
                           border: '1px solid var(--warning)',
-                          padding: '0.6rem 0.75rem',
+                          padding: '0.65rem 0.85rem',
                           borderRadius: 'var(--radius-sm)',
-                          fontSize: '0.76rem'
+                          fontSize: '0.78rem'
                         }}
                       >
                         <strong>Comparación de fuentes 2011–2015:</strong> IPC Oficial informó 15,6% anual prom. vs. 29,8% en Reconstrucción Provincial/Congreso. Pobreza oficial informó 4,7% (1S 2013) vs. 30,1% en serie comparable CEDLAS.
                       </div>
                     )}
 
-                    <div>
-                      <h4 className="balance-group-title improved">
-                        ▲ Indicadores que mejoraron en el período
-                      </h4>
-                      <ul className="balance-list improved">
-                        {gov.queMejoro.map((item, idx) => (
-                          <li key={idx}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
+                    <div className="gov-pros-cons-grid">
+                      <div className="gov-balance-box improved">
+                        <h4 className="balance-group-title improved">
+                          🟢 Lo que mejoró en su gestión
+                        </h4>
+                        <ul className="balance-list improved">
+                          {gov.queMejoro.map((item, idx) => (
+                            <li key={idx}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
 
-                    <div>
-                      <h4 className="balance-group-title worsened">
-                        ▼ Indicadores que empeoraron en el período
-                      </h4>
-                      <ul className="balance-list worsened">
-                        {gov.queEmpeoro.map((item, idx) => (
-                          <li key={idx}>{item}</li>
-                        ))}
-                      </ul>
+                      <div className="gov-balance-box worsened">
+                        <h4 className="balance-group-title worsened">
+                          🔴 Lo que empeoró en su gestión
+                        </h4>
+                        <ul className="balance-list worsened">
+                          {gov.queEmpeoro.map((item, idx) => (
+                            <li key={idx}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
 
                     {readingLevel === 'avanzada' && (
-                      <div>
+                      <div className="gov-balance-box problems">
                         <h4 className="balance-group-title problems">
-                          ◆ Desequilibrios acumulados al cierre / presente
+                          ⚠️ Problemas y desequilibrios acumulados al final del período
                         </h4>
                         <ul className="balance-list problems">
                           {gov.problemasGenerados.map((item, idx) => (
@@ -520,13 +519,13 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
         <table className="comparison-table">
           <thead>
             <tr>
-              <th>Indicador Verificado (Fuente y Periodicidad)</th>
+              <th>Indicador Oficial Verificado (Fuente y Frecuencia)</th>
               {GOVERNMENTS.map((g) => (
                 <th key={g.id} style={{ borderTop: `3px solid ${g.color}` }}>
                   {g.order}° {g.president} ({g.yearsLabel})
                 </th>
               ))}
-              <th>Lectura Metodológica Comparada</th>
+              <th>Conclusión Comparada</th>
             </tr>
           </thead>
           <tbody>
@@ -534,7 +533,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               <td>
                 <strong>1. Inflación Anual (Recibió → Dejó/Actual)</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  /v1/ipc_nacional y /v1/valorizacion_canastas_cba_cbt (Mensual)
+                  INDEC · Índice de Precios al Consumidor y Canastas (Mensual)
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {
@@ -549,8 +548,8 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                 );
               })}
               <td style={{ fontSize: '0.78rem' }}>
-                <strong>Magnitud de baja:</strong> Milei (−172,7 pp desde 211,4%).{' '}
-                <strong>Menor nivel nominal inicial/prom:</strong> CFK ({formatNum(GOVERNMENTS[0].metrics[effectiveKey].inflacionAnualPromedio)}).
+                <strong>Mayor desaceleración:</strong> Milei (−172,7 pp desde 211,4%).{' '}
+                <strong>Menor nivel promedio:</strong> CFK ({formatNum(GOVERNMENTS[0].metrics[effectiveKey].inflacionAnualPromedio)}).
               </td>
             </tr>
 
@@ -558,7 +557,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               <td>
                 <strong>2. Pobreza e Indigencia en Personas (EPH)</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  /v1/pobreza_eph · Total 31 Aglomerados (Semestral: 20162S a 20261S)
+                  INDEC · Encuesta Permanente de Hogares · 31 Aglomerados (Semestral)
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {
@@ -584,9 +583,9 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
 
             <tr>
               <td>
-                <strong>3. Salario Real y Poder de Compra en CBT</strong>
+                <strong>3. Salario Real y Poder de Compra en Canastas</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  /v1/indice_salarios ÷ /v1/valorizacion_canastas_cba_cbt
+                  INDEC · Índice de Salarios vs. Canasta Básica Total (Mensual)
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {
@@ -601,7 +600,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
                 );
               })}
               <td style={{ fontSize: '0.78rem' }}>
-                <strong>Nivel absoluto en canastas:</strong> CFK (1,82 CBT).{' '}
+                <strong>Mayor poder de compra en canastas:</strong> CFK (1,82 CBT).{' '}
                 <strong>Recuperación privado reg.:</strong> Milei (+3,4% vs 2023, con caída estatal −18,5%).
               </td>
             </tr>
@@ -610,7 +609,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               <td>
                 <strong>4. Desocupación y Empleo Formal vs. Informal</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  /v1/mercado_trabajo_eph (Trimestral hasta 2T 2026)
+                  INDEC · Mercado de Trabajo EPH (Trimestral hasta 2T 2026)
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {
@@ -634,7 +633,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               <td>
                 <strong>5. Actividad (EMAE), Industria, Construcción y Energía</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  /v1/estimador-mensual-de-actividad-economica-sectores e /v1/ipi_minero
+                  INDEC · Actividad por Sectores (EMAE) e Índice Minero y Energético
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {
@@ -658,7 +657,7 @@ export default function ChronologicalComparison({ methodMode, readingLevel }) {
               <td>
                 <strong>6. Resultado Fiscal Financiero, Deuda y Reservas Netas</strong>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  Ministerio de Economía / BCRA / ICA INDEC
+                  Ministerio de Economía / BCRA / Intercambio Comercial INDEC
                 </div>
               </td>
               {GOVERNMENTS.map((g) => {

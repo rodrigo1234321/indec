@@ -253,7 +253,7 @@ export default function MethodologyAndDataAudit({ methodMode, readingLevel }) {
 
               <div>
                 <strong style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.72rem' }}>
-                  COBERTURA TEMPORAL EN API
+                  COBERTURA TEMPORAL OFICIAL
                 </strong>
                 <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   {currentEndpoint.coverage}
@@ -262,9 +262,9 @@ export default function MethodologyAndDataAudit({ methodMode, readingLevel }) {
 
               <div>
                 <strong style={{ display: 'block', color: 'var(--text-muted)', fontSize: '0.72rem' }}>
-                  CLAVES PRIMARIAS (PostgREST)
+                  APERTURA Y DESAGREGACIÓN
                 </strong>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
+                <span style={{ fontSize: '0.78rem', fontWeight: 500 }}>
                   {currentEndpoint.primaryKeys}
                 </span>
               </div>
@@ -382,10 +382,10 @@ export default function MethodologyAndDataAudit({ methodMode, readingLevel }) {
                     <strong>Período 2007–2015:</strong> El INDEC advierte institucionalmente que las series no revisadas correspondientes a ese período deben considerarse con reserva. Por ello, la plataforma ofrece el selector entre <em>Reconstrucción Histórica Comparable</em>, <em>Serie Oficial Publicada</em> y <em>Comparación entre Fuentes</em>.
                   </li>
                   <li>
-                    <strong>Índice de Salarios No Registrado:</strong> Su serie oficial continua en la API comienza en octubre de 2016. Las comparaciones anteriores utilizan microdatos EPH y no forman parte de una misma serie homogénea.
+                    <strong>Índice de Salarios No Registrado:</strong> Su serie oficial continua en el INDEC comienza en octubre de 2016. Las comparaciones anteriores utilizan microdatos EPH y no forman parte de una misma serie homogénea.
                   </li>
                   <li>
-                    <strong>Construcción Física vs. Costos:</strong> La actividad física de construcción se mide mediante el Estimador Mensual de Actividad Económica (EMAE Sectores - Letra F) / ISAC. El endpoint <code>/v1/icc_precios_construccion</code> mide costos de insumos y mano de obra por m², no nivel de producción.
+                    <strong>Construcción Física vs. Costos:</strong> La actividad física de construcción se mide mediante el Estimador Mensual de Actividad Económica (EMAE Sector Construcción) / ISAC. El Índice del Costo de la Construcción (ICC) mide costos de materiales y mano de obra por m², no nivel de producción física.
                   </li>
                 </ul>
               </div>

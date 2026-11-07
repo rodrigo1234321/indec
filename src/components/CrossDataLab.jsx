@@ -64,7 +64,7 @@ export default function CrossDataLab({ methodMode, readingLevel }) {
           <div>
             <div style={{ marginBottom: '0.85rem' }}>
               <strong style={{ fontSize: '0.9rem' }}>
-                Variación Real por Sector (/v1/indice_salarios), Jubilación Mínima y Cantidad de Canastas Básicas Totales (CBT)
+                Variación Real por Sector Laboral (INDEC), Jubilación Mínima y Cantidad de Canastas Básicas Totales (CBT)
               </strong>
             </div>
 
@@ -78,9 +78,9 @@ export default function CrossDataLab({ methodMode, readingLevel }) {
               {GOVERNMENTS.map((gov) => {
                 const m = gov.metrics[effectiveKey];
                 const rows = [
-                  { label: 'Privado Registrado (110)', val: m.salarioPrivadoRegVar },
-                  { label: 'Público Nacional (121)', val: m.salarioPublicoNacVar },
-                  { label: 'Informal No Reg. (200)', val: m.salarioInformalVar },
+                  { label: 'Privado Registrado', val: m.salarioPrivadoRegVar },
+                  { label: 'Público Nacional', val: m.salarioPublicoNacVar },
+                  { label: 'Informal No Registrado', val: m.salarioInformalVar },
                   { label: 'Jubilación Mínima + Bono', val: m.jubilacionMinimaRealVar }
                 ];
                 return (
@@ -167,7 +167,7 @@ export default function CrossDataLab({ methodMode, readingLevel }) {
           <div>
             <div style={{ marginBottom: '0.85rem' }}>
               <strong style={{ fontSize: '0.9rem' }}>
-                Serie Semestral Oficial Sincronizada de /v1/pobreza_eph (2011 a 1S 2026) y Cruce con Empleo Formal/Informal (/v1/mercado_trabajo_eph)
+                Serie Semestral Oficial de Pobreza EPH (2011 a 1S 2026) y Cruce con Empleo Formal e Informal (INDEC)
               </strong>
             </div>
 
@@ -278,7 +278,7 @@ export default function CrossDataLab({ methodMode, readingLevel }) {
           <div>
             <div style={{ marginBottom: '0.85rem' }}>
               <strong style={{ fontSize: '0.9rem' }}>
-                Cruce de EMAE Sectores (/v1/estimador-mensual-de-actividad-economica-sectores), IPI Manufacturero e IPI Minero
+                Cruce de Actividad por Sectores (EMAE INDEC), Producción Industrial Manufacturera y Minería/Energía
               </strong>
             </div>
 

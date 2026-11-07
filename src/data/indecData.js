@@ -18,111 +18,111 @@
 export const INDEC_ENDPOINTS_CATALOG = [
   {
     id: 'ipc_nacional',
-    endpoint: '/v1/ipc_nacional',
+    endpoint: 'Serie Oficial · Precios al Consumidor (IPC)',
     area: 'Dirección de Índices de Precios de Consumo',
     name: 'Índice de Precios al Consumidor (IPC)',
-    coverage: '201604 a 202609 (API v1) + Reconstrucción/Oficial 2011-2015',
+    coverage: 'Abril 2016 a Septiembre 2026 (INDEC) + Serie Histórica 2011–2015',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, clasificador, codigo, region, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Rubro de consumo, Región estadística y Variación'
   },
   {
     id: 'valorizacion_canastas_cba_cbt',
-    endpoint: '/v1/valorizacion_canastas_cba_cbt',
+    endpoint: 'Serie Oficial · Canasta Básica Alimentaria y Total',
     area: 'Dirección de Índices de Precios de Consumo',
     name: 'Valorización de Canasta Básica Alimentaria (CBA) y Total (CBT)',
-    coverage: '201604 a 202609 (CBT sep-2026: $528.318,67 adulto equiv. / +38,7% i.a.)',
+    coverage: 'Abril 2016 a Septiembre 2026 (CBT sep-2026: $528.318,67 adulto equiv. / +38,7% i.a.)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, codigo, nivel, region, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Tipo de canasta, Hogar de referencia y Región'
   },
   {
     id: 'canasta_crianza',
-    endpoint: '/v1/canasta-crianza',
+    endpoint: 'Serie Oficial · Canasta de Crianza (0 a 12 años)',
     area: 'Dirección Nacional de Estadísticas de Condiciones de Vida',
     name: 'Valorización Mensual de la Canasta de Crianza (0 a 12 años)',
-    coverage: '202001 a 202609 (publicación iniciada en 2023 con serie desde 2020)',
+    coverage: 'Enero 2020 a Septiembre 2026 (publicación iniciada en 2023 con serie desde 2020)',
     frequency: 'Mensual',
-    primaryKeys: 'Periodo, anio, Mes, tot_men1, tot_1a3, tot_4a5, tot_6a12'
+    primaryKeys: 'Año, Mes y Tramos de edad (menor de 1 año, 1 a 3, 4 a 5 y 6 a 12 años)'
   },
   {
     id: 'indice_salarios',
-    endpoint: '/v1/indice_salarios',
+    endpoint: 'Serie Oficial · Índice de Salarios por Sector',
     area: 'Dirección de Índices de Precios de la Producción',
     name: 'Índice de Salarios (Privado Registrado, Público Nac/Prov, No Registrado)',
-    coverage: '201510 a 202608 (Nota: serie No Registrado inicia en oct. 2016)',
+    coverage: 'Octubre 2015 a Agosto 2026 (Nota: serie No Registrado inicia en oct. 2016)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, codigo, descripcion, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Sector laboral (Privado, Público o Informal) e Índice'
   },
   {
     id: 'pobreza_eph',
-    endpoint: '/v1/pobreza_eph',
+    endpoint: 'Serie Oficial · Pobreza e Indigencia (EPH)',
     area: 'Dirección Nacional de Estadísticas de Condiciones de Vida',
     name: 'Incidencia de la Pobreza y la Indigencia (EPH Total 31 Aglomerados)',
-    coverage: '20162S a 20261S (Último dato oficial 1S 2026: Pobreza 32,3% | Indigencia 7,5%)',
+    coverage: '2° Semestre 2016 a 1° Semestre 2026 (Último dato: Pobreza 32,3% | Indigencia 7,5%)',
     frequency: 'Semestral',
-    primaryKeys: 'periodo, anio, semestre, area_geografica_nom'
+    primaryKeys: 'Año, Semestre y Aglomerado urbano / Región estadística'
   },
   {
     id: 'mercado_trabajo_eph',
-    endpoint: '/v1/mercado_trabajo_eph',
+    endpoint: 'Serie Oficial · Mercado de Trabajo y Empleo (EPH)',
     area: 'Dirección Nacional de Estadísticas de Condiciones de Vida',
     name: 'Mercado de Trabajo EPH (Actividad, Empleo Formal/Informal, Desocupación)',
-    coverage: '20162T a 20262T (Último dato 2T 2026: Desocup. 7,9% | Formal 24,7% | Informal 20,2%)',
+    coverage: '2° Trimestre 2016 a 2° Trimestre 2026 (Desocup. 7,9% | Formal 24,7% | Informal 20,2%)',
     frequency: 'Trimestral',
-    primaryKeys: 'periodo, anio, trimestre, area_geografica_nom'
+    primaryKeys: 'Año, Trimestre, Condición de actividad y Región urbana'
   },
   {
     id: 'emae_general',
-    endpoint: '/v1/estimador-mensual-de-actividad-economica-nivel-general',
+    endpoint: 'Serie Oficial · Actividad Económica Nivel General (EMAE)',
     area: 'Dirección Nacional de Cuentas Nacionales',
     name: 'Estimador Mensual de Actividad Económica (EMAE Nivel General Base 2004=100)',
-    coverage: '200401 a 202608 (Tendencia-ciclo ago-2026: 154,32)',
+    coverage: 'Enero 2004 a Agosto 2026 (Tendencia-ciclo ago-2026: 154,32)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, anio, mes, tipo_de_indicador_descripcion'
+    primaryKeys: 'Año, Mes, Serie Original, Desestacionalizada y Tendencia-Ciclo'
   },
   {
     id: 'emae_sectores',
-    endpoint: '/v1/estimador-mensual-de-actividad-economica-sectores',
+    endpoint: 'Serie Oficial · Actividad Económica por Sectores (EMAE)',
     area: 'Dirección Nacional de Cuentas Nacionales',
     name: 'EMAE por Sectores Productivos (Agro, Industria, Construcción, Minas, Comercio)',
-    coverage: '200401 a 202608 (16 letras de actividad económica real)',
+    coverage: 'Enero 2004 a Agosto 2026 (16 ramas de actividad económica real)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, codigo, descripcion, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Rama de actividad productiva y Variación interanual'
   },
   {
     id: 'ipi_manufacturero',
-    endpoint: '/v1/ipi_manufacturero',
+    endpoint: 'Serie Oficial · Producción Industrial Manufacturera (IPI)',
     area: 'Dirección de Estadísticas Mineras, Manufactureras, Energéticas y Construcción',
     name: 'Índice de Producción Industrial Manufacturero (IPI)',
-    coverage: '201601 a 202609 (Tendencia-ciclo sep-2026: 114,75)',
+    coverage: 'Enero 2016 a Septiembre 2026 (Tendencia-ciclo sep-2026: 114,75)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, codigo_CLaNAE_2004, serie, tipo_de_indicador'
+    primaryKeys: 'Período mensual, División industrial manufacturera y Serie'
   },
   {
     id: 'ipi_minero',
-    endpoint: '/v1/ipi_minero',
+    endpoint: 'Serie Oficial · Producción Minera, Litio y Energía (IPI)',
     area: 'Dirección de Estadísticas Mineras, Manufactureras, Energéticas y Construcción',
     name: 'Índice de Producción Industrial Minero y Hidrocarburos No Convencionales',
-    coverage: '201701 a 202609 (Incluye Carbonato de Litio, Shale Oil y Shale Gas)',
+    coverage: 'Enero 2017 a Septiembre 2026 (Incluye Carbonato de Litio, Shale Oil y Shale Gas)',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, codigo_ClaNAE_2010, descripcion, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Recurso mineral o energético y Volumen físico'
   },
   {
     id: 'icc_construccion',
-    endpoint: '/v1/icc_precios_construccion',
+    endpoint: 'Serie Oficial · Costo de la Construcción (ICC)',
     area: 'Dirección de Índices de Precios de la Producción',
     name: 'Índice del Costo de la Construcción (ICC - mide costos, no volumen físico)',
-    coverage: '201511 a 202609',
+    coverage: 'Noviembre 2015 a Septiembre 2026',
     frequency: 'Mensual',
-    primaryKeys: 'periodo, capitulo, tipo_de_indicador'
+    primaryKeys: 'Período mensual, Capítulo (Materiales, Mano de Obra, Gastos Generales)'
   },
   {
     id: 'comercio_exterior',
-    endpoint: '/v1/comercio_exterior_exportacion_bienes',
+    endpoint: 'Serie Oficial · Comercio Exterior (Exportaciones e Importaciones)',
     area: 'Dirección Nacional de Estadísticas del Sector Externo',
     name: 'Intercambio Comercial Argentino (Exportaciones FOB e Importaciones CIF)',
-    coverage: '198601 a 2026',
+    coverage: 'Enero 1986 a Septiembre 2026',
     frequency: 'Mensual',
-    primaryKeys: 'Periodo, Anio, Mes, rubro_cod / uso_economico_cod'
+    primaryKeys: 'Año, Mes, Grandes Rubros de Exportación y Uso Económico de Importación'
   }
 ];
 
@@ -791,12 +791,12 @@ export const GOVERNMENTS = [
     },
     queMejoro: [
       'Fuerte desinflación: tras el pico inicial de 25,5% mensual en dic. 2023 (211,4% anual), la variación interanual de la CBT bajó a 38,7% en sep. 2026 (1,7% mensual).',
-      'Reducción de la pobreza e indigencia tras el shock de 2024: según /v1/pobreza_eph, pasó de 41,7% (2S 2023) y 52,9% (1S 2024) a 38,1% (2S 2024), 28,2% (2S 2025) y 32,3% en 1S 2026 (-9,4 pp vs. 2023).',
+      'Reducción de la pobreza e indigencia tras el shock de 2024: según la Encuesta Permanente de Hogares (INDEC), pasó de 41,7% (2S 2023) y 52,9% (1S 2024) a 38,1% (2S 2024), 28,2% (2S 2025) y 32,3% en 1S 2026 (-9,4 pp vs. 2023).',
       'Primer superávit fiscal financiero sostenido (+1,8% primario / +0,4% financiero), cierre de la brecha cambiaria (de 158% a 6,5%) y recomposición de reservas netas (+USD 18.300 M).',
-      'Récord en producción de hidrocarburos no convencionales y litio (+21,4% en /v1/ipi_minero) y baja de la tasa de homicidios a 3,8 cada 100.000 hab. (Plan Bandera / SNIC).'
+      'Récord en producción de hidrocarburos no convencionales y litio (+21,4% en Índice Minero y Energético INDEC) y baja de la tasa de homicidios a 3,8 cada 100.000 hab. (Plan Bandera / SNIC).'
     ],
     queEmpeoro: [
-      'Deterioro de indicadores laborales en EPH (/v1/mercado_trabajo_eph): entre 4T 2023 y 2T 2026 la desocupación subió de 5,7% a 7,9%, la tasa de empleo formal bajó de 26,7% a 24,7% y el empleo informal subió de 18,9% a 20,2%.',
+      'Deterioro de indicadores laborales en la Encuesta Permanente de Hogares (INDEC): entre 4T 2023 y 2T 2026 la desocupación subió de 5,7% a 7,9%, la tasa de empleo formal bajó de 26,7% a 24,7% y el empleo informal subió de 18,9% a 20,2%.',
       'Contracción de la construcción (-14,8% respecto a 2023) y rezago en ramas manufactureras mercado-internistas (-3,1% en IPI Manufacturero).',
       'Caída del poder adquisitivo en el subsector público nacional (-18,5%) y provincial (-11,2%), junto con jubilaciones con bono congelado (-8,4%).',
       'Aumento del peso de servicios regulados (luz, gas, agua, transporte) sobre el ingreso disponible del hogar.'
@@ -834,7 +834,7 @@ export const GOVERNMENTS = [
 ];
 
 /**
- * Serie Real Semestral de Pobreza e Indigencia descargada de /v1/pobreza_eph (20162S - 20261S)
+ * Serie Real Semestral de Pobreza e Indigencia oficial de EPH INDEC (20162S - 20261S)
  * más empalme histórico 2011-2015 (Reconstrucción CEDLAS vs. Oficial INDEC)
  */
 export const REAL_POBREZA_SEMESTRAL = [
@@ -1066,8 +1066,8 @@ export const DISTRIBUTIVE_GROUPS = [
   {
     id: 'privado_registrado',
     groupName: 'Asalariados Privados Registrados (Con Convenio / Paritaria)',
-    sourceEndpoint: '/v1/indice_salarios (Código 110)',
-     limitationNote: 'Serie continua comparable desde oct. 2015 en API-INDEC v1 y SIPA previo.',
+    sourceEndpoint: 'INDEC · Índice de Salarios (Sector Privado Registrado)',
+    limitationNote: 'Serie continua comparable desde oct. 2015 en INDEC y SIPA previo.',
     byGov: {
       cfk: { varReal: -0.9, status: 'Estable en techo histórico (1,82 CBT)', dir: 'neutral' },
       macri: { varReal: -18.2, status: 'Fuerte pérdida en crisis 2018-2019', dir: 'neg' },
@@ -1078,8 +1078,8 @@ export const DISTRIBUTIVE_GROUPS = [
   {
     id: 'publico_nacional',
     groupName: 'Sector Público Nacional (Administración Central, Universidades, Organismos)',
-    sourceEndpoint: '/v1/indice_salarios (Código 121)',
-    limitationNote: 'Separa subsector público nacional (121) de provincial (122).',
+    sourceEndpoint: 'INDEC · Índice de Salarios (Subsector Público Nacional)',
+    limitationNote: 'Separa subsector público nacional de provincial.',
     byGov: {
       cfk: { varReal: 1.2, status: 'Expansión tanto en dotación (+14%) como en salario real', dir: 'pos' },
       macri: { varReal: -21.4, status: 'Ajuste real por paritarias debajo de la inflación', dir: 'neg' },
@@ -1090,7 +1090,7 @@ export const DISTRIBUTIVE_GROUPS = [
   {
     id: 'informales_no_reg',
     groupName: 'Trabajadores Informales (Sector Privado No Registrado)',
-    sourceEndpoint: '/v1/indice_salarios (Código 200) y /v1/mercado_trabajo_eph',
+    sourceEndpoint: 'INDEC · Salarios No Registrados y Encuesta Permanente de Hogares (EPH)',
     limitationNote:
       'Advertencia metodológica: la serie de Índice de Salarios No Registrados del INDEC inicia en oct. 2016 (con 5 meses de rezago muestral EPH). Para 2011-2015 se estima vía microdatos EPH.',
     byGov: {
@@ -1103,7 +1103,7 @@ export const DISTRIBUTIVE_GROUPS = [
   {
     id: 'jubilados_minima',
     groupName: 'Jubilados y Pensionados (Haber Mínimo + Bonos)',
-    sourceEndpoint: 'ANSES / IPC Nacional (/v1/ipc_nacional)',
+    sourceEndpoint: 'ANSES · Haber Mínimo Previsional e IPC Nacional (INDEC)',
     limitationNote: 'Compara el haber mínimo efectivo (incluyendo refuerzos/bonos) deflactado por IPC.',
     byGov: {
       cfk: { varReal: 6.4, status: 'Fórmula de movilidad semestral superó a la inflación promedio', dir: 'pos' },
@@ -1115,7 +1115,7 @@ export const DISTRIBUTIVE_GROUPS = [
   {
     id: 'hogares_vulnerables_auh',
     groupName: 'Hogares Vulnerables con Niños (AUH + Tarjeta Alimentar vs. CBA)',
-    sourceEndpoint: '/v1/valorizacion_canastas_cba_cbt y /v1/canasta-crianza',
+    sourceEndpoint: 'INDEC · Canasta Básica Alimentaria (CBA) y Canasta de Crianza',
     limitationNote: 'Mide qué porcentaje de la Canasta Básica Alimentaria (indigencia) cubre la transferencia directa.',
     byGov: {
       cfk: { varReal: 67.0, status: 'Cobertura promedio del 67% de la CBA por hijo', dir: 'pos' },
@@ -1127,7 +1127,7 @@ export const DISTRIBUTIVE_GROUPS = [
 ];
 
 /**
- * Los 8 Cruces del Laboratorio Económico (Versión 2.0 Ampliada y Rigurosa)
+ * Los 9 Cruces del Laboratorio Económico (Versión 2.0 Ampliada y Rigurosa)
  */
 export const CROSS_DATA_ANALYSES = [
   {
@@ -1135,7 +1135,7 @@ export const CROSS_DATA_ANALYSES = [
     number: '01',
     title: 'Bolsillo Real, Jubilaciones y Canastas Básicas (CBT)',
     question: '¿Cuántas Canastas Básicas Totales pudo comprar un salario y cómo evolucionó cada sector?',
-    endpointsUsed: ['/v1/indice_salarios', '/v1/ipc_nacional', '/v1/valorizacion_canastas_cba_cbt'],
+    endpointsUsed: ['INDEC · Índice de Salarios', 'INDEC · Precios al Consumidor (IPC)', 'INDEC · Canasta Básica (CBA y CBT)'],
     formula: 'Salario Nominal por Sector y Haber Mínimo ÷ Valorización Mensual CBT ($528.318,67 adulto equiv. en sep-2026)',
     methodologicalCaveat:
       'La serie de salarios no registrados de INDEC comienza en octubre de 2016. La comparación 2011–2015 utiliza remuneraciones EPH deflactadas según el modo histórico elegido.',
@@ -1147,12 +1147,12 @@ export const CROSS_DATA_ANALYSES = [
     number: '02',
     title: 'Trabajadores Pobres, Informalidad y Desocupación (EPH)',
     question: '¿Qué relación hubo entre tasa de desempleo, empleo formal/informal y pobreza?',
-    endpointsUsed: ['/v1/pobreza_eph', '/v1/mercado_trabajo_eph'],
+    endpointsUsed: ['INDEC · Pobreza e Indigencia (EPH)', 'INDEC · Mercado de Trabajo (EPH)'],
     formula: 'Tasa de Pobreza Semestral EPH × (Tasa de Desocupación + Tasa de Empleo Formal 24,7% e Informal 20,2% en 2T 2026)',
     methodologicalCaveat:
       'La pobreza se mide semestralmente y el mercado laboral trimestralmente. La coexistencia de baja desocupación y alta pobreza describe un fenómeno simultáneo, condicionado tanto por la informalidad como por la aceleración inflacionaria.',
     keyConclusion:
-      'Los datos oficiales de /v1/pobreza_eph y /v1/mercado_trabajo_eph revelan dos fases opuestas: (1) En 2023 el desempleo bajó al mínimo de 5,7% (4T 2023), pero la pobreza escaló a 41,7% (2S 2023) porque los ingresos de los ocupados crecieron por debajo de la CBT. (2) Entre 2024 y 2026 ocurrió lo inverso: la pobreza bajó de 41,7% (y 52,9% en 1S 2024) a 32,3% en 1S 2026 al moderarse la inflación, pero la desocupación subió de 5,7% a 7,9% (2T 2026) y el empleo formal cayó de 26,7% a 24,7%.'
+      'Los datos oficiales de Pobreza y Mercado de Trabajo del INDEC revelan dos fases opuestas: (1) En 2023 el desempleo bajó al mínimo de 5,7% (4T 2023), pero la pobreza escaló a 41,7% (2S 2023) porque los ingresos de los ocupados crecieron por debajo de la CBT. (2) Entre 2024 y 2026 ocurrió lo inverso: la pobreza bajó de 41,7% (y 52,9% en 1S 2024) a 32,3% en 1S 2026 al moderarse la inflación, pero la desocupación subió de 5,7% a 7,9% (2T 2026) y el empleo formal cayó de 26,7% a 24,7%.'
   },
   {
     id: 'cruce_3_modelo_productivo',
@@ -1160,14 +1160,14 @@ export const CROSS_DATA_ANALYSES = [
     title: 'Modelo Productivo: Industria y Construcción Real vs. Energía, Minería y Agro',
     question: '¿Cómo se comportaron las ramas urbanas intensivas en mano de obra frente a los sectores primarios exportadores?',
     endpointsUsed: [
-      '/v1/estimador-mensual-de-actividad-economica-sectores',
-      '/v1/ipi_manufacturero',
-      '/v1/ipi_minero',
-      '/v1/icc_precios_construccion'
+      'INDEC · Actividad Económica por Sectores (EMAE)',
+      'INDEC · Producción Industrial Manufacturera (IPI)',
+      'INDEC · Producción Minera y Energética (IPI)',
+      'INDEC · Costo de la Construcción (ICC)'
     ],
-    formula: 'EMAE Letra D (Industria) y Letra F (Construcción) vs. EMAE Letra A (Agro) y /v1/ipi_minero (Litio + No Convencional)',
+    formula: 'EMAE Industria y Construcción vs. EMAE Agro e Índice de Producción Minera y Energética (Litio + No Convencional)',
     methodologicalCaveat:
-      'Para medir volumen físico de construcción se utiliza el EMAE Sector Construcción / ISAC, reservando el endpoint /v1/icc_precios_construccion exclusivamente para medir costos por m².',
+      'Para medir volumen físico de construcción se utiliza el EMAE Sector Construcción / ISAC, reservando el Índice del Costo de la Construcción (ICC) exclusivamente para medir costos por m².',
     keyConclusion:
       'Durante 2019–2023 la protección cambiaria y la obra pública impulsaron la Industria (+7,2%) y la Construcción (+9,8%). En cambio, durante 2023–2026 la apertura comercial y el recorte de obra pública redujeron la Construcción (-14,8%) y mantuvieron rezagada la Manufactura (-3,1%), mientras que el IPI Minero y Energético creció +21,4% (con 9.798 toneladas mensuales de carbonato de litio y récord de gas y petróleo no convencional en sep. 2026).'
   },
@@ -1177,9 +1177,9 @@ export const CROSS_DATA_ANALYSES = [
     title: 'Anatomía del Sector Externo (Cantidades vs. Precios de Exportación e Importación)',
     question: '¿Los saldos comerciales se explicaron por mayores volúmenes exportados, mejores precios internacionales o caída de importaciones?',
     endpointsUsed: [
-      '/v1/comercio_exterior_exportacion_bienes',
-      '/v1/comercio_exterior_importacion_bienes',
-      '/v1/estimador-mensual-de-actividad-economica-nivel-general'
+      'INDEC · Exportaciones de Bienes (FOB)',
+      'INDEC · Importaciones de Bienes (CIF)',
+      'INDEC · Actividad Económica General (EMAE)'
     ],
     formula: 'Exportaciones FOB (Precios × Cantidades) − Importaciones CIF por Uso Económico',
     methodologicalCaveat:
@@ -1192,10 +1192,10 @@ export const CROSS_DATA_ANALYSES = [
     number: '05',
     title: 'Vulnerabilidad Social: Canasta Alimentaria (CBA), AUH y Canasta de Crianza',
     question: '¿Cuánto costó alimentar y criar a un niño y qué proporción cubrieron las políticas de ingresos?',
-    endpointsUsed: ['/v1/valorizacion_canastas_cba_cbt', '/v1/canasta-crianza', '/v1/pobreza_eph'],
+    endpointsUsed: ['INDEC · Canasta Básica (CBA y CBT)', 'INDEC · Canasta de Crianza', 'INDEC · Pobreza e Indigencia (EPH)'],
     formula: 'Transferencia AUH + Alimentar ÷ CBA Adulto Equivalente y Canasta de Crianza ($570.831 a $728.849 en sep-2026)',
     methodologicalCaveat:
-      'El endpoint /v1/canasta-crianza fue lanzado en 2023 con serie reconstruida desde enero de 2020 (incluye costo de bienes y servicios + costo de cuidado).',
+      'La Canasta de Crianza oficial del INDEC fue lanzada en 2023 con serie reconstruida desde enero de 2020 (incluye costo de bienes y servicios + costo de cuidado).',
     keyConclusion:
       'En septiembre de 2026 la Canasta de Crianza oficial alcanzó $570.831,58 para menores de 1 año y $728.849,59 para niños de 6 a 12 años. Mientras que en 2023 la aceleración del precio de los alimentos licuó la AUH hasta cubrir solo el 52% de la CBA (llevando la indigencia a 11,9%), el refuerzo focalizado de AUH y Tarjeta Alimentar entre 2024 y 2026 elevó la cobertura al 98% de la CBA, permitiendo que la indigencia baje del pico de 18,1% (1S 2024) a 7,5% (1S 2026).'
   },
@@ -1205,8 +1205,8 @@ export const CROSS_DATA_ANALYSES = [
     title: 'Actividad Mensual (EMAE) vs. Régimen Inflacionario (IPC)',
     question: '¿Fue sostenible el crecimiento cuando se aceleró la inflación?',
     endpointsUsed: [
-      '/v1/estimador-mensual-de-actividad-economica-nivel-general',
-      '/v1/ipc_nacional'
+      'INDEC · Actividad Económica Nivel General (EMAE)',
+      'INDEC · Precios al Consumidor (IPC)'
     ],
     formula: 'Variación Interanual EMAE Original y Tendencia-Ciclo (154,32 en ago-2026) vs. IPC Mensual/Anual',
     methodologicalCaveat:
@@ -1219,7 +1219,7 @@ export const CROSS_DATA_ANALYSES = [
     number: '07',
     title: 'Estado, Dólares y Sostenibilidad Macroeconómica (Fiscal × Reservas × Brecha)',
     question: '¿En qué condiciones de solvencia fiscal y cambiaria dejó el Estado cada presidente?',
-    endpointsUsed: ['API Series de Tiempo (Mecon / BCRA)', '/v1/comercio_exterior_exportacion_bienes'],
+    endpointsUsed: ['Ministerio de Economía y BCRA (Series Oficiales)', 'INDEC · Intercambio Comercial Argentino'],
     formula: 'Resultado Financiero (% PBI) + Variación de Reservas Netas BCRA (USD) + Brecha Cambiaria (%)',
     methodologicalCaveat:
       'Distingue Reservas Brutas de Reservas Netas (descontando encajes en dólares, swaps y préstamos de corto plazo) y Resultado Primario de Resultado Financiero (incluyendo intereses de deuda).',
@@ -1232,9 +1232,9 @@ export const CROSS_DATA_ANALYSES = [
     title: 'Crecimiento Distributivo (EMAE × Empleo Formal × Desigualdad Gini × Pobreza)',
     question: '¿Cuándo el crecimiento económico redujo la desigualdad y creó empleo formal?',
     endpointsUsed: [
-      '/v1/estimador-mensual-de-actividad-economica-nivel-general',
-      '/v1/mercado_trabajo_eph',
-      '/v1/pobreza_eph'
+      'INDEC · Actividad Económica Nivel General (EMAE)',
+      'INDEC · Mercado de Trabajo (EPH)',
+      'INDEC · Pobreza e Indigencia (EPH)'
     ],
     formula: 'Variación EMAE × Tasa de Empleo Formal EPH × Coeficiente de Gini de Ingreso Per Cápita Familiar',
     methodologicalCaveat:
@@ -1247,17 +1247,17 @@ export const CROSS_DATA_ANALYSES = [
     number: '09',
     title: 'Tarifas y Servicios Regulados vs. Bienes de Consumo y Alimentos (COICOP)',
     question: '¿Cómo cambió el peso de los gastos fijos (luz, gas, agua, transporte) frente a la comida y bienes?',
-    endpointsUsed: ['/v1/ipc_nacional (Categorías R, S, B y División 04 Vivienda)'],
+    endpointsUsed: ['INDEC · Precios al Consumidor por Rubros y Regulados'],
     formula: 'IPC Regulados (43,3% i.a.) y Vivienda/Servicios (49,1% i.a.) vs. Bienes (29,2% i.a.) y Alimentos (35,1% i.a.) en sep-2026',
     methodologicalCaveat:
-      'El clasificador COICOP Argentina 2019 de la API del INDEC separa bienes de servicios y agrupa en "Regulados" a las tarifas y precios administrados por el Estado.',
+      'El clasificador COICOP Argentina 2019 del INDEC separa bienes de servicios y agrupa en "Regulados" a las tarifas y precios administrados por el Estado.',
     keyConclusion:
       'Entre 2011 y 2015 las tarifas de servicios públicos permanecieron subsidiadas (cubriendo menos del 20% del costo real), lo que preservó el poder adquisitivo en bienes pero generó déficit fiscal y crisis energética. Con Macri (2016-18) la recomposición tarifaria aceleró los precios regulados pero se frenó en 2019 tras las devaluaciones. Con Alberto Fernández se volvió a congelar el cuadro tarifario aumentando el déficit de subsidios. Con Milei (2024–2026) el sinceramiento de tarifas provocó que los Servicios Regulados aumentaran 43,3% i.a. y Vivienda/Gas/Luz 49,1% i.a. en sep. 2026, muy por encima de los Bienes (29,2% i.a.) y Alimentos (35,1% i.a.), incrementando el peso de los costos fijos sobre el ingreso disponible familiar.'
   }
 ];
 
 /**
- * Las 10 Preguntas Objetivas del Cuestionario Ciudadano (Escala 1 al 10)
+ * Las 9 Preguntas Objetivas del Cuestionario Ciudadano (Escala 1 al 10)
  * Todas vinculadas estrictamente a indicadores medibles (0% subjetividad partidaria)
  */
 export const CITIZEN_PRIORITY_QUESTIONS = [
@@ -1266,7 +1266,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'precios',
     Order: 1,
     questionTitle: '¿Cuánto te importa que baje la inflación y que los precios sean estables?',
-    questionContext: 'Medido por la variación anual y mensual del IPC Nacional (/v1/ipc_nacional) y la desaceleración respecto a la inflación recibida.',
+    questionContext: 'Medido por la variación anual y mensual del Índice de Precios al Consumidor (IPC INDEC) y la desaceleración respecto a la inflación recibida.',
     dataSummaryByGov: {
       cfk: 'Promedió 29,8% anual (reconstrucción) / 15,6% (oficial); subió de 22,8% a 26,9%.',
       macri: 'La recibió en 26,9% y la duplicó hasta 53,8% anual (promedio 41,2%).',
@@ -1279,7 +1279,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'bolsillo',
     Order: 2,
     questionTitle: '¿Cuánto te importa que los sueldos y las jubilaciones compren más Canastas Básicas?',
-    questionContext: 'Medido por el Índice de Salarios (/v1/indice_salarios) y el haber jubilatorio mínimo divididos por la Canasta Básica Total (/v1/valorizacion_canastas_cba_cbt).',
+    questionContext: 'Medido por el Índice de Salarios del INDEC y el haber jubilatorio mínimo divididos por el valor de la Canasta Básica Total (CBT).',
     dataSummaryByGov: {
       cfk: 'Mayor nivel absoluto: el salario medio compraba 1,82 CBT y la jubilación mínima subió +6,4% real.',
       macri: 'El salario real cayó -19,8% (1,44 CBT) y la jubilación mínima cayó -19,2%.',
@@ -1292,7 +1292,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'dolar_externo',
     Order: 3,
     questionTitle: '¿Cuánto te importa la estabilidad del dólar, que no haya brecha cambiaria y que el BCRA sume reservas?',
-    questionContext: 'Medido por la Brecha Cambiaria (%), las Reservas Netas del BCRA (USD) y el Saldo Comercial (/v1/comercio_exterior_exportacion_bienes).',
+    questionContext: 'Medido por la Brecha Cambiaria (%), las Reservas Netas del BCRA (USD) y el Saldo Comercial de Exportaciones e Importaciones (INDEC).',
     dataSummaryByGov: {
       cfk: 'Impuso el cepo (brecha 54%), perdió USD 33.300 M de reservas netas y terminó con déficit comercial (-USD 2.668 M).',
       macri: 'Unificó al inicio pero devaluó fuerte en 2018-19; recompuso reservas (+USD 12.400 M) y dejó superávit comercial (+USD 15.990 M).',
@@ -1305,7 +1305,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'empleo',
     Order: 4,
     questionTitle: '¿Cuánto te importa que baje el desempleo y que crezca el trabajo formal registrado?',
-    questionContext: 'Medido por la Tasa de Desocupación, Tasa de Empleo Formal y Tasa de Empleo Informal (/v1/mercado_trabajo_eph).',
+    questionContext: 'Medido por la Tasa de Desocupación, Tasa de Empleo Formal y Tasa de Empleo Informal de la Encuesta Permanente de Hogares (EPH INDEC).',
     dataSummaryByGov: {
       cfk: 'Bajó la desocupación de 6,7% a 5,9% con 27,8% de tasa de empleo formal.',
       macri: 'La desocupación subió de 5,9% a 8,9% y el empleo formal cayó a 26,1%.',
@@ -1318,7 +1318,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'social',
     Order: 5,
     questionTitle: '¿Cuánto te importa que bajen la pobreza y la indigencia (hambre) en el país?',
-    questionContext: 'Medido por la Incidencia de Pobreza e Indigencia en Personas (/v1/pobreza_eph) y la cobertura de la Canasta Básica Alimentaria.',
+    questionContext: 'Medido por la Incidencia de Pobreza e Indigencia en Personas (EPH INDEC) y la cobertura de la Canasta Básica Alimentaria.',
     dataSummaryByGov: {
       cfk: 'Cerró en 30,1% en reconstrucción comparable (+4,1 pp vs 2011) o 4,7% en serie oficial discontinuada; AUH cubría 67% de la CBA.',
       macri: 'Bajó a 25,7% en 2017 pero tras las devaluaciones cerró en 35,5% (+5,4 pp) y 8,0% de indigencia.',
@@ -1331,7 +1331,7 @@ export const CITIZEN_PRIORITY_QUESTIONS = [
     dimensionKey: 'produccion',
     Order: 6,
     questionTitle: '¿Cuánto te importa que crezcan la actividad económica, la industria nacional y la construcción?',
-    questionContext: 'Medido por el EMAE General y Sectores (/v1/estimador-mensual-de-actividad-economica-sectores) y el IPI Manufacturero (/v1/ipi_manufacturero).',
+    questionContext: 'Medido por el Estimador Mensual de Actividad Económica (EMAE General y Sectores) y el Índice de Producción Industrial Manufacturero (INDEC).',
     dataSummaryByGov: {
       cfk: 'PBI +1,5% (-2,8% per cápita), construcción +4,1% e industria manufacturera -3,2%.',
       macri: 'PBI -4,0% (-7,8% per cápita), industria manufacturera -13,6% y construcción -6,8%; creció el agro (+18,5%).',
@@ -1456,7 +1456,7 @@ export const BASE100_TRAJECTORIES = {
   indicators: {
     salarioReal: {
       title: 'Salario Real Promedio (Base 100 = Inicio de Mandato)',
-      subtitle: 'Frecuencia mensual · /v1/indice_salarios deflactado por /v1/ipc_nacional',
+      subtitle: 'Frecuencia mensual · Índice de Salarios INDEC ajustado por Inflación (IPC)',
       unit: 'Índice (Inicio=100)',
       frequencyNote: 'Serie mensual continua. El tramo M34 corresponde a agosto/septiembre de 2026 para el mandato en curso.',
       description: 'Muestra la trayectoria del poder adquisitivo promedio desde el mes de asunción hasta el final de cada mandato.',
@@ -1469,9 +1469,9 @@ export const BASE100_TRAJECTORIES = {
     },
     actividadEmae: {
       title: 'Actividad Económica EMAE Desestacionalizado (Base 100 = Inicio de Mandato)',
-      subtitle: 'Frecuencia mensual · /v1/estimador-mensual-de-actividad-economica-nivel-general',
+      subtitle: 'Frecuencia mensual · Estimador Mensual de Actividad Económica (EMAE INDEC)',
       unit: 'Índice (Inicio=100)',
-      frequencyNote: 'Serie mensual continua (200401 a 202608). No requiere interpolación.',
+      frequencyNote: 'Serie mensual continua (enero 2004 a agosto 2026). No requiere interpolación.',
       description: 'Permite comparar caídas recesivas y recuperaciones al mismo mes de gestión.',
       series: {
         cfk: [100, 98.7, 99.0, 100.8, 101.4, 99.2, 100.2, 100.6, 101.5],
@@ -1482,7 +1482,7 @@ export const BASE100_TRAJECTORIES = {
     },
     inflacionMensual: {
       title: 'Tasa de Inflación Mensual Equivalente (IPC INDEC)',
-      subtitle: 'Frecuencia mensual · /v1/ipc_nacional',
+      subtitle: 'Frecuencia mensual · Índice de Precios al Consumidor (IPC Nacional INDEC)',
       unit: '% mensual',
       frequencyNote: 'Serie mensual. Para dic. 2023 se registra el salto de 25,5% y su posterior desaceleración hasta ~1,7% en sep. 2026.',
       description: 'Compara la velocidad mensual de suba de precios en cada semestre del mandato.',
@@ -1495,7 +1495,7 @@ export const BASE100_TRAJECTORIES = {
     },
     pobrezaVariacion: {
       title: 'Variación de la Pobreza EPH respecto al Semestre de Asunción (en pp)',
-      subtitle: 'Frecuencia semestral · /v1/pobreza_eph (Total 31 Aglomerados)',
+      subtitle: 'Frecuencia semestral · Encuesta Permanente de Hogares (INDEC · Total 31 Aglomerados)',
       unit: 'Puntos % (pp)',
       frequencyNote:
         'Nota técnica: la EPH de pobreza es estrictamente semestral (1S y 2S). Cada punto de esta curva corresponde a un semestre oficial publicado por el INDEC, sin inventar meses intermedios.',

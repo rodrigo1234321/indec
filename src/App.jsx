@@ -306,12 +306,11 @@ export default function App() {
             }}
           >
             <div style={{ maxWidth: '70ch' }}>
-              <strong style={{ color: 'var(--text-primary)', fontSize: '0.92rem' }}>
-                Observatorio de Resultados, Costos y Consecuencias · Basado en Catálogo API-INDEC v1
+              <strong style={{ color: 'var(--text-primary)', fontSize: '0.95rem' }}>
+                Observatorio Ciudadano de Resultados, Costos y Consecuencias (2011 – 2026)
               </strong>
               <p style={{ marginTop: '0.4rem', lineHeight: 1.5 }}>
-                Datos sincronizados de forma segura en servidor (<code>scripts/sync-indec-api.mjs</code>) desde{' '}
-                <code>https://api.indec.gob.ar/v1</code> (corte septiembre 2026 / 1S 2026 / 2T 2026), API Series de Tiempo (BCRA / Ministerio de Economía) y SNIC (Ministerio de Seguridad). La credencial JWT nunca se expone en el navegador público.
+                Datos oficiales sincronizados y verificados del Instituto Nacional de Estadística y Censos (INDEC), Banco Central de la República Argentina (BCRA), Ministerio de Economía y Sistema Nacional de Información Criminal (SNIC).
               </p>
             </div>
             <div>
@@ -320,7 +319,7 @@ export default function App() {
                 className="action-primary-btn"
                 onClick={() => setIsApiModalOpen(true)}
               >
-                Fuentes, Metadatos y Conector Avanzado API
+                Ver Fuentes Oficiales y Ficha Técnica
               </button>
             </div>
           </div>
